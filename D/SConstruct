@@ -1,0 +1,1 @@
+Command('test', 'fibonacci.d', 'rdmd -unittest --main $SOURCE')
