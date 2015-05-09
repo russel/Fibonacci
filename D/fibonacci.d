@@ -1,6 +1,6 @@
-import std.range ;
-import std.typetuple ;
-import std.typecons ;
+import std.range: drop, recurrence, takeOne;
+import std.typetuple: TypeTuple ;
+import std.typecons: tuple ;
 
 long iterative(immutable long n) {
   auto current = 0;
@@ -12,10 +12,13 @@ long iterative(immutable long n) {
 }
 
 long declarative(immutable long n) {
-  return array(takeExactly(recurrence!("a[n-1] + a[n-2]")(0L, 1L), cast(size_t)(n + 1)))[n];
+  return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(0L, 1L), n)).front;
 }
 
 unittest {
+
+  import std.conv: to;
+
   immutable data = [
                     [0, 0],
                     [1, 1],
@@ -31,11 +34,19 @@ unittest {
                     [11, 89],
                     [12, 144],
                     [13, 233],
+                    [14, 377],
                     ] ;
-  foreach (item; data) {
-    assert(iterative(item[0]) == item[1]);
+
+
+  string message(immutable string functionName, immutable int value, immutable long actual, immutable long expected) {
+    return functionName ~ "(" ~ to!string(value) ~ ") = " ~ to!string(actual) ~ " should be " ~ to!string(expected);
   }
-  foreach (item; data) {
-    assert(declarative(item[0]) == item[1]);
+
+  foreach (immutable item; data) {
+    immutable iterative_result = iterative(item[0]);
+    assert(iterative_result == item[1], message("Iterative", item[0], iterative_result, item[1]));
+
+    immutable declarative_result = declarative(item[0]);
+    assert(declarative_result == item[1], message("declarative", item[0], declarative_result, item[1]));
   }
 }
