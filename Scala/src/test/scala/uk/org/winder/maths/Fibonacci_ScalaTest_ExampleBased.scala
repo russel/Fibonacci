@@ -12,7 +12,7 @@ class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with Table
     (Fibonacci.naïveRecursive _, "naïveRecursive"),
     (Fibonacci.tailRecursive _, "tailRecursive"),
     (Fibonacci.memoizedRecursive _, "memoizedRecursive"),
-    (Fibonacci.folded _, "folded"),
+    (Fibonacci.foldLeftive _, "folded"),
     (Fibonacci.closedForm _, "closed form")
   )
 
@@ -58,7 +58,7 @@ class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with Table
   //test("naïveRecursive 9000") { Fibonacci.naïveRecursive(9000) }
   //test("naïveRecursive 10000") { an [StackOverflowError] should be thrownBy { Fibonacci.naïveRecursive(10000) } }
   test("tailRecursive 10000") { Fibonacci.tailRecursive(10000) }
-  test("folded 10000") { Fibonacci.folded(10000) }
+  test("folded 10000") { Fibonacci.foldLeftive(10000) }
   // The memo is persistent for the execution of the program so there is a data coupling between the following two tests.
   test("memoizedRecursive 3000") { Fibonacci.memoizedRecursive(3000) }
   test("memoizedRecursive 7000") { an [StackOverflowError] should be thrownBy { Fibonacci.memoizedRecursive(7000) } }

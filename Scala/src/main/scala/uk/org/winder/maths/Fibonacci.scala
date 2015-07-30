@@ -51,11 +51,11 @@ object Fibonacci {
   def tailRecursive(n:Int):BigInt = tailRecursive(BigInt(n))
   def tailRecursive(n:BigInt):BigInt = {
     validate(n)
-    @tailrec def iteration(n:BigInt, next:BigInt, result:BigInt):BigInt = n match {
+    @tailrec def iteration(n:BigInt, next:BigInt = one, result:BigInt = zero):BigInt = n match {
       case `zero` => result
       case _ => iteration(n - one, next + result, next)
     }
-    iteration(n, one, zero)
+    iteration(n)
    }
 
   val memo = scala.collection.mutable.Map(BigInt(0) -> BigInt(0), BigInt(1) -> BigInt(1))
@@ -68,8 +68,8 @@ object Fibonacci {
     memo(n)
   }
 
-  def folded(n:Int):BigInt = folded(BigInt(n))
-  def folded(n:BigInt):BigInt = {
+  def foldLeftive(n:Int):BigInt = foldLeftive(BigInt(n))
+  def foldLeftive(n:BigInt):BigInt = {
     validate(n)
     if (n < two) n
     else ((zero, one) /: (one until n))((a, _) => (a._2, a._1 + a._2))._2

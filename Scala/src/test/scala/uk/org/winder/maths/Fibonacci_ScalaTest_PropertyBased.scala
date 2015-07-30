@@ -14,7 +14,7 @@ class Fibonacci_ScalaTest_PropertyBased extends PropSpec with PropertyChecks wit
     //(Fibonacci.naïveRecursive _, "naïveRecursive"),  // Do not do this because of exponential behaviour.
     (Fibonacci.tailRecursive _, "tailRecursive"),
     (Fibonacci.memoizedRecursive _, "memoizedRecursive"),
-    (Fibonacci.folded _, "folded")
+    (Fibonacci.foldLeftive _, "folded")
     //(Fibonacci.closedForm _, "closed form")  // DO not do this due to use of hardware ints and overflow.
   )
 
