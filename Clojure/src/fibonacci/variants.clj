@@ -59,3 +59,15 @@ f n = f (n - 1) + f (n - 2), n > 1
         (fn [x y] [(second x), (+' (first x) (second x))])
         [0, 1]
         (range (dec n))))))
+
+(defn zipping [n]
+  "nth Fibonacci Sequence value using a zipping algorithm on lazy lists"
+  (validate-argument n)
+  (def fib (cons 0 (cons 1 (lazy-seq (map + fib (rest  fib))))))
+  (first (drop n fib)))
+
+(defn lazycatting [n]
+  "nth Fibonacci Sequence value using a zipping algorithm via lazy cat"
+  (validate-argument n)
+  (def fib (lazy-cat [0 1] (map + (rest fib) fib)))
+  (first (drop n fib)))

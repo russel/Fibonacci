@@ -38,3 +38,7 @@
 (check/defspec pattern-match-check 100 (run-checks pattern-match))
 
 (check/defspec reducing-check 100 (run-checks reducing))
+
+(check/defspec zipping-check 100 (run-checks zipping))
+
+(check/defspec lazycatting-check 100 (run-checks lazycatting))

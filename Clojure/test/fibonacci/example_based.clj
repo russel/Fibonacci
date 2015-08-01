@@ -50,3 +50,7 @@
 (deftest pattern-match-test (run-the-tests pattern-match))
 
 (deftest reducing-test (run-the-tests reducing))
+
+(deftest zipping-test (run-the-tests zipping))
+
+(deftest lazycatting-test (run-the-tests lazycatting))
