@@ -5,9 +5,9 @@ import scala.math.sqrt
 
 object Fibonacci {
 
-  val zero = new BigInt(java.math.BigInteger.ZERO)
-  val one = new BigInt(java.math.BigInteger.ONE)
-  val two = new BigInt(new java.math.BigInteger("2"))
+  val zero = BigInt(0)
+  val one = BigInt(1)
+  val two = BigInt(2)
 
  private def validate(n:BigInt):Unit = {
     if (n < zero) throw new IllegalArgumentException("Parameter must be a non-negative integer.")
@@ -58,7 +58,7 @@ object Fibonacci {
     iteration(n)
    }
 
-  val memo = scala.collection.mutable.Map(BigInt(0) -> BigInt(0), BigInt(1) -> BigInt(1))
+  private val memo = scala.collection.mutable.Map(BigInt(0) -> BigInt(0), BigInt(1) -> BigInt(1))
   def memoizedRecursive(n:Int):BigInt = memoizedRecursive(BigInt(n))
   def memoizedRecursive(n:BigInt):BigInt = {
     validate(n)
@@ -73,6 +73,14 @@ object Fibonacci {
     validate(n)
     if (n < two) n
     else ((zero, one) /: (one until n))((a, _) => (a._2, a._1 + a._2))._2
+  }
+
+  def zipive(n:Int):BigInt = zipive(BigInt(n))
+  def zipive(n:BigInt):BigInt = {
+    validate(n)
+    assert(n < Int.MaxValue)
+    lazy val fib: Stream[BigInt] = zero #:: one #:: fib.zip(fib.tail).map{pair => pair._1 + pair._2}
+    fib.drop(n.toInt).head
   }
 
   def closedForm(n:Int):BigInt = closedForm(BigInt(n))

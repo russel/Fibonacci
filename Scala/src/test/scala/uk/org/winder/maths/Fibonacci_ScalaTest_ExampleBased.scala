@@ -13,6 +13,7 @@ class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with Table
     (Fibonacci.tailRecursive _, "tailRecursive"),
     (Fibonacci.memoizedRecursive _, "memoizedRecursive"),
     (Fibonacci.foldLeftive _, "folded"),
+    (Fibonacci.zipive _, "zipive"),
     (Fibonacci.closedForm _, "closed form")
   )
 
