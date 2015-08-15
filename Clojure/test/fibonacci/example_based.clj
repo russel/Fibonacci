@@ -45,6 +45,8 @@
 
 (deftest naïve-test (run-the-tests naïve))
 
+(deftest memoized-naïve-test (run-the-tests memoized-naïve))
+
 (deftest looping-test (run-the-tests looping))
 
 (deftest pattern-match-test (run-the-tests pattern-match))
@@ -54,3 +56,5 @@
 (deftest zipping-test (run-the-tests zipping))
 
 (deftest lazycatting-test (run-the-tests lazycatting))
+
+(deftest iterating-test (run-the-tests iterating))

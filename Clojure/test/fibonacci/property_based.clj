@@ -31,7 +31,9 @@
   )
 
 ; Do not run the property-based test for the naïve recursion case due to the exponential behaviour.
-;(defspec naïve-check 100 (run-test naïve))
+;(check/defspec naïve-check 100 (run-checks naïve))
+
+(check/defspec memoized-naïve-check 100 (run-checks memoized-naïve))
 
 (check/defspec looping-check 100 (run-checks looping))
 
@@ -42,3 +44,5 @@
 (check/defspec zipping-check 100 (run-checks zipping))
 
 (check/defspec lazycatting-check 100 (run-checks lazycatting))
+
+(check/defspec iterating-check 100 (run-checks iterating))

@@ -1,5 +1,5 @@
-(defproject Fibonacci "0.0.0-SNAPSHOT"
-  :description "A collection of functions to calculate nth item in Fibonacci Sequence with various realizations."
+(defproject Fibonacci "0.0.0"
+  :description "Functions to calculate nth item in the Fibonacci Sequence with various realizations."
   :license {:name "GPL v.3"
             :url "http://www.gnu.org/licenses/gpl.html"}
   :dependencies [

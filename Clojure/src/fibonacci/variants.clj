@@ -5,8 +5,7 @@ Various implementations of the Fibonacci Sequence function:
 
 f 0 = 0
 f 1 = 1
-f n = f (n - 1) + f (n - 2), n > 1
-
+f n = f (n - 1) + f (n - 2)  ∀ n > 1
 "
 
 (defn- validate-argument [n]
@@ -22,6 +21,17 @@ f n = f (n - 1) + f (n - 2), n > 1
   (if (< n 2)
     n
     (+' (naïve (dec n)) (naïve (- n 2)))))
+
+(defn memoized-naïve [n]
+  "nth Fibonacci Sequence value using a naïve recursive approach with memoization to remove the exponential behaviour."
+  (validate-argument n)
+  (def the-function
+    (memoize
+     (fn [i]
+       (if (< i 2)
+         i
+         (+' (the-function (dec i)) (the-function (- i 2)))))))
+  (the-function n))
 
 (defn looping [n]
   "nth Fibonnaci Sequence value using a classic tail recursive algorithm."
@@ -50,7 +60,7 @@ f n = f (n - 1) + f (n - 2), n > 1
       (pattern-match n 0 1))))
 
 (defn reducing [n]
-  "nth Fibonacci Sequence value using the built-in reduce function"
+  "nth Fibonacci Sequence value using the built-in reduce function."
   (validate-argument n)
   (if (< n 2)
     n
@@ -61,13 +71,20 @@ f n = f (n - 1) + f (n - 2), n > 1
         (range (dec n))))))
 
 (defn zipping [n]
-  "nth Fibonacci Sequence value using a zipping algorithm on lazy lists"
+  "nth Fibonacci Sequence value using a zipping algorithm on lazy lists."
   (validate-argument n)
   (def fib (cons 0 (cons 1 (lazy-seq (map + fib (rest  fib))))))
   (first (drop n fib)))
 
 (defn lazycatting [n]
-  "nth Fibonacci Sequence value using a zipping algorithm via lazy cat"
+  "nth Fibonacci Sequence value using a zipping algorithm via lazy cat."
   (validate-argument n)
-  (def fib (lazy-cat [0 1] (map + (rest fib) fib)))
+  (def fib (lazy-cat [0 1] (map + fib (rest fib))))
   (first (drop n fib)))
+
+(defn iterating [n]
+  "nth Fibonacci Sequence value using a zipping algorithm via iterate."
+  (validate-argument n)
+  (def fibonacci-sequence
+    (map first (iterate (fn [[a b]] [b (+ a b)]) [0 1])))
+  (nth fibonacci-sequence n))
