@@ -33,6 +33,8 @@ func Test_check_iterative_uint(t *testing.T) {
 //	checkCorrectUintValues(t, NaïveRecursive_uint)
 //}
 
+// TODO MemoizedRecursive is not behaving as expected so temporarily ignore it.
+
 //func Test_check_memoizedRecursive_uint(t *testing.T) {
 //	checkCorrectUintValues(t, MemoizedRecursive_uint)
 //}
@@ -66,6 +68,8 @@ func Test_check_iterative_BigInt(t *testing.T) {
 //func Test_check_naïveRecursive_BigInt(t *testing.T) {
 //	checkCorrectBigIntValues(t, NaïveRecursive_bigInt)
 //}
+
+// TODO MemoizedRecursive is not behaving as expected so temporarily ignore it.
 
 //func Test_check_memoizedRecursive_BigInt(t *testing.T) {
 //	checkCorrectBigIntValues(t, MemoizedRecursive_bigInt)
