@@ -1,0 +1,28 @@
+apply plugin: 'groovy'
+
+sourceCompatibility = 8
+
+repositories {
+  mavenLocal()
+  jcenter()
+  mavenCentral()
+}
+
+dependencies {
+  testCompile 'org.testng:testng:6.9.9'
+  testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}
+
+test {
+  useTestNG()
+}
+
+clean.doLast {
+  delete 'test-output'
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.8'
+}
+
+defaultTasks 'test'
