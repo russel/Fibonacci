@@ -7,6 +7,8 @@ long iterative(immutable long n) {
   auto next = 1;
   for (auto i = 0; i < n; ++i) {
     TypeTuple!(current, next) = tuple(next , current + next);
+    // The above works, despite comments on the email list, the following does not work as needed.
+    //tuple(current, next) = tuple(next , current + next);
   }
   return current;
 }
@@ -44,7 +46,7 @@ unittest {
 
   foreach (immutable item; data) {
     immutable iterative_result = iterative(item[0]);
-    assert(iterative_result == item[1], message("Iterative", item[0], iterative_result, item[1]));
+    assert(iterative_result == item[1], message("iterative", item[0], iterative_result, item[1]));
 
     immutable declarative_result = declarative(item[0]);
     assert(declarative_result == item[1], message("declarative", item[0], declarative_result, item[1]));

@@ -27,7 +27,7 @@ func Test_check_iterative_uint(t *testing.T) {
 	checkCorrectUintValues(t, Iterative_uint)
 }
 
-// NaïveRecursive has exponential behaviour so do not test it.
+// NaïveRecursive has exponential behaviour so do not check it.
 
 //func Test_check_naïveRecursive_uint(t *testing.T) {
 //	checkCorrectUintValues(t, NaïveRecursive_uint)
@@ -63,7 +63,7 @@ func Test_check_iterative_BigInt(t *testing.T) {
 	checkCorrectBigIntValues(t, Iterative_bigInt)
 }
 
-// NaïveRecursive has exponential behaviour so do not test it.
+// NaïveRecursive has exponential behaviour so do not check it.
 
 //func Test_check_naïveRecursive_BigInt(t *testing.T) {
 //	checkCorrectBigIntValues(t, NaïveRecursive_bigInt)
