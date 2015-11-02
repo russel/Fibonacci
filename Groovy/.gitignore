@@ -1,0 +1,4 @@
+/build/
+/.gradle/
+Groovy.i*
+/.idea/
