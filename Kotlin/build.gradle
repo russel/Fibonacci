@@ -1,0 +1,40 @@
+buildscript {
+  ext.kotlin_version = '0.1-SNAPSHOT'
+  repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+  }
+  dependencies { classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"}
+}
+
+apply plugin: "kotlin"
+
+repositories {
+  jcenter()
+  mavenCentral()
+  maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  testCompile 'org.testng:testng:6.+'
+  // TestNG needs these but they are not picked up as dependencies :-(
+  testCompile 'junit:junit:4.+'
+  testCompile 'com.google.inject:guice:2.+'
+
+}
+
+// Kotlin compiler integrates with the Java compiler infrastructure so
+// we have to tell the system that it has to look in the Kotlin source place.
+sourceSets {
+  main.java.srcDirs += 'src/main/kotlin'
+}
+
+test.useTestNG()
+
+defaultTasks 'test'
+
+task wrapper(type:Wrapper) {
+  gradleVersion = '2.10'
+}
