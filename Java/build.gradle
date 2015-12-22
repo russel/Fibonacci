@@ -9,12 +9,16 @@ repositories {
 }
 
 dependencies {
-  testCompile 'org.testng:testng:6.9.9'
+  testCompile 'org.testng:testng:6.+'
   testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
 test {
-  useTestNG()
+  // The Spock tests use the JUnit4 runner, comment the following out to run them.
+  //
+  // The TestNG tests will not run using the JUnit runner, uncomment the following to run them
+
+  //useTestNG()
 }
 
 clean.doLast {
@@ -22,7 +26,7 @@ clean.doLast {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.8'
+  gradleVersion = '2.10'
 }
 
 defaultTasks 'test'
