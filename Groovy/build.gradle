@@ -9,12 +9,12 @@ repositories {
 }
 
 dependencies {
-  compile 'org.codehaus.groovy:groovy:2.4.5'
+  compile 'org.codehaus.groovy:groovy:2.4.+'
   testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.8'
+  gradleVersion = '2.10'
 }
 
 defaultTasks 'test'
