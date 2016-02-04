@@ -2,11 +2,6 @@ package uk.org.winder.maths.fibonacci
 
 import java.math.BigInteger
 
-import kotlin.math.div
-import kotlin.math.times
-import kotlin.math.minus
-import kotlin.math.plus
-
 val zero = BigInteger.ZERO
 val one = BigInteger.ONE
 val two = 2.bigint
@@ -50,7 +45,7 @@ fun tailRecursive(n:BigInteger):BigInteger {
 fun sequence(n:Int):BigInteger {
   validate(n.bigint)
   fun fs(): Sequence<Pair<BigInteger, BigInteger>> {
-    return sequence(Pair(zero, one), {e -> Pair(e.second, e.first + e.second)})
+    return generateSequence(Pair(zero, one), { e -> Pair(e.second, e.first + e.second) })
   }
   return fs().take(n+1).last().first
 }
