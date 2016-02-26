@@ -9,3 +9,5 @@ ceylon {
     // Gradle plugin.
     sourceRoots = ['source', 'test-source']
  }
+
+defaultTasks 'test'
