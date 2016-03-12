@@ -4,3 +4,5 @@
 /.ceylon/
 /.classpath
 /.project
+/.gradle/
+/build/
