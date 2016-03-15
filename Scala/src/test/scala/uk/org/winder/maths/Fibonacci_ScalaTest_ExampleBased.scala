@@ -1,10 +1,9 @@
 package uk.org.winder.maths
 
 import org.scalatest.FunSuite
-import org.scalatest.Matchers
 import org.scalatest.prop.TableDrivenPropertyChecks
 
-class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with TableDrivenPropertyChecks {
+class Fibonacci_ScalaTest_ExampleBased extends FunSuite with TableDrivenPropertyChecks {
   val algorithms = Table(
     ("algorithm", "name"),
     (Fibonacci.iterativeWhile _, "iterative"),
@@ -43,14 +42,14 @@ class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with Table
   )
   forAll (inputData) {(n:Int, f:BigInt) =>
     forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
-      test(name + " " + n) { algorithm(n) should equal (f) }
+      test(name + " " + n) { assert(algorithm(n) == f) }
     }
   }
 
   val negativeValues = Table("n", -20, -10, -1)
   forAll (negativeValues) {(n:Int) =>
     forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
-      test(name + " " + n) { an [IllegalArgumentException] should be thrownBy  { algorithm(n) } }
+      test(name + " " + n) { intercept [IllegalArgumentException] { algorithm(n) } }
     }
   }
 
@@ -62,5 +61,5 @@ class Fibonacci_ScalaTest_ExampleBased extends FunSuite with Matchers with Table
   test("folded 10000") { Fibonacci.foldLeftive(10000) }
   // The memo is persistent for the execution of the program so there is a data coupling between the following two tests.
   test("memoizedRecursive 3000") { Fibonacci.memoizedRecursive(3000) }
-  test("memoizedRecursive 7000") { an [StackOverflowError] should be thrownBy { Fibonacci.memoizedRecursive(7000) } }
+  test("memoizedRecursive 7000") { intercept [StackOverflowError] { Fibonacci.memoizedRecursive(7000) } }
 }
