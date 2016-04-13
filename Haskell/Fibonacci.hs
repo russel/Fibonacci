@@ -19,6 +19,7 @@ exceptionErrorMessage = "Cannot use a negative argument to Fibonacci function."
 
 -- | Fibonacci implemented using a naïve recuirsive approach. This function has exponential time behaviour
 -- | so is useless for anything other than small positive arguments.
+naïveRecursive :: Integer -> Integer
 naïveRecursive n
     | n < 0 = error exceptionErrorMessage
     | n == 0 = 0
@@ -26,17 +27,27 @@ naïveRecursive n
     | n > 1 = naïveRecursive (n - 1) + naïveRecursive (n - 2)
 
 -- | Fibonacci implemented using a classic tail recursive function approach.
+tailRecursive :: Integer -> Integer
 tailRecursive n
     | n < 0 = error exceptionErrorMessage
-    | n == 0 = 0
-    | n == 1 = 1
-    | n > 1 = doTailRecursion n 1 0
-        where
-            doTailRecursion 0 next result = result
-            doTailRecursion i next result = doTailRecursion (i - 1) (next + result) next
+    | otherwise = fs n 0 1
+    where
+      fs 0 result next = result
+      fs i result next = fs (i - 1) next (next + result)
+
+-- | Fibonacci implemented using a lazy list realized using recursion.
+lazyList_recursion :: Integer -> Integer
+lazyList_recursion n
+    | n < 0 = error exceptionErrorMessage
+    | otherwise = fibonacciSequence !! fromInteger n
+    where
+      fibonacciSequence = fs 0 1
+          where
+            fs a b = a : fs b (a + b)
 
 -- | Fibonacci implemented using a lazy list realized using zipWith.
-lazyList n
+lazyList_zipWith :: Integer -> Integer
+lazyList_zipWith n
     | n < 0 = error exceptionErrorMessage
     | otherwise = fibonacciSequence !! fromInteger n
     where

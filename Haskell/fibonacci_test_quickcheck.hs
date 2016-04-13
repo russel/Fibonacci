@@ -16,6 +16,8 @@ fibonacci_property f n = f_p f (fromIntegral n)
 
 main :: IO()
 main = do
+  -- Do not attempt to test the naïveRecursive implementation due to the exponential behaviour.
   -- quickCheck (fibonacci_property naïveRecursive)
   quickCheck (fibonacci_property tailRecursive)
-  quickCheck (fibonacci_property lazyList)
+  quickCheck (fibonacci_property lazyList_recursion)
+  quickCheck (fibonacci_property lazyList_zipWith)
