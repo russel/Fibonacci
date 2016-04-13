@@ -1,0 +1,20 @@
+module Fibonacci where
+
+lazyList_recursion :: Int -> Integer
+lazyList_recursion n = head $ drop n $ fibonacciSequence
+    where
+      fibonacciSequence = fs 0 1
+          where
+            fs a b = a : fs b (a + b)
+
+lazyList_zipWith :: Int -> Integer
+--lazyList n = fibonacciSequence !! fromInteger n
+lazyList_zipWith n = head $ drop n $ fibonacciSequence
+  where
+    fibonacciSequence = 0 : 1 : zipWith (+) fibonacciSequence (tail fibonacciSequence)
+
+tailRecursive :: Int -> Integer
+tailRecursive n = fs n 0 1
+    where
+      fs 0 a b = a
+      fs n a b = fs (n - 1) b (a + b)

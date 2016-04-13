@@ -1,0 +1,16 @@
+module Fibonacci_QuickCheck_Test where
+
+import Test.QuickCheck(quickCheck, property)
+
+import Fibonacci(lazyList_recursion, lazyList_zipWith, tailRecursive)
+
+fibonacci_property :: (Int -> Integer) -> Int -> Bool
+fibonacci_property f n
+    | n < 0 = True
+    | n == 0 = f n == 0
+    | n == 1 = f n == 1
+    | n > 1 = f n == f (n - 1) + f (n - 2)
+
+-- fibonacci_lazyList_recursion_property = property (fibonacci_property lazyList_recursion)
+fibonacci_lazyList_zipWith_property = property (fibonacci_property lazyList_zipWith)
+-- fibonacci_lazyList_tailRecursive_property = property (fibonacci_property tailRecursive)
