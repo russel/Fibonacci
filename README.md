@@ -2,7 +2,8 @@
 
 This repository contains the fibonacci(n) function coded with a number of different
 algorithms/implementations in various languages. The purpose is not to provide Fibonacci as a Service
-(FaaS), but it to investigate data-driven testing in the various languages.
+(FaaS), but it to investigate data-driven testing (both example based and property based) in the various
+languages.
 
 ## See Also
 
