@@ -36,7 +36,7 @@ fun naïveRecursive(n:BigInteger):BigInteger {
 fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
 fun tailRecursive(n:BigInteger):BigInteger {
   validate(n)
-  fun iterate(i:BigInteger, current:BigInteger=zero, next:BigInteger=one):BigInteger {
+  tailrec fun iterate(i:BigInteger, current:BigInteger=zero, next:BigInteger=one):BigInteger {
     return if (i == zero) current else iterate(i - one, next, current + next)
   }
   return iterate(n)
