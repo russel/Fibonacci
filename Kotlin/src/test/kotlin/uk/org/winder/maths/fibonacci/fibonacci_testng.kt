@@ -18,30 +18,30 @@ class Fibonacci_TestNG {
         )
 
   val positiveData = arrayOf(
-      0 to BigInteger.ZERO,
-      1 to BigInteger.ONE,
-      2 to BigInteger.ONE,
-      3 to 2.bigint,
-      4 to 3.bigint,
-      5 to 5.bigint,
-      6 to 8.bigint,
-      7 to 13.bigint,
-      8 to 21.bigint,
-      9 to 34.bigint,
-      10 to 55.bigint,
-      11 to 89.bigint,
-      12 to 144.bigint,
-      13 to 233.bigint,
-      14 to 377.bigint,
-      15 to 610.bigint,
-      16 to 987.bigint,
-      17 to 1597.bigint,
-      18 to 2584.bigint,
-      19 to 4181.bigint,
-      20 to 6765.bigint
+      0L to BigInteger.ZERO,
+      1L to BigInteger.ONE,
+      2L to BigInteger.ONE,
+      3L to 2.bigint,
+      4L to 3.bigint,
+      5L to 5.bigint,
+      6L to 8.bigint,
+      7L to 13.bigint,
+      8L to 21.bigint,
+      9L to 34.bigint,
+      10L to 55.bigint,
+      11L to 89.bigint,
+      12L to 144.bigint,
+      13L to 233.bigint,
+      14L to 377.bigint,
+      15L to 610.bigint,
+      16L to 987.bigint,
+      17L to 1597.bigint,
+      18L to 2584.bigint,
+      19L to 4181.bigint,
+      20L to 6765.bigint
   )
 
-  val negativeData = arrayOf(-1, -2, -5, -10, -20, -100)
+  val negativeData = arrayOf(-1L, -2L, -5L, -10L, -20L, -100L)
 
   @DataProvider
   fun algorithmsAndPositiveData() = algorithms.flatMap({a -> positiveData.map({d -> arrayOf(a.first, a.second, d.first, d.second)})}).toTypedArray()
