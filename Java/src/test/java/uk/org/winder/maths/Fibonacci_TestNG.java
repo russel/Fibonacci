@@ -12,30 +12,30 @@ import static org.testng.Assert.assertEquals;
 
 public class Fibonacci_TestNG {
   private Object[][] positiveData = new Object[][] {
-      {0, BigInteger.valueOf(0)},
-      {1, BigInteger.valueOf(1)},
-      {2, BigInteger.valueOf(1)},
-      {3, BigInteger.valueOf(2)},
-      {4, BigInteger.valueOf(3)},
-      {5, BigInteger.valueOf(5)},
-      {6, BigInteger.valueOf(8)},
-      {7, BigInteger.valueOf(13)},
-      {8, BigInteger.valueOf(21)},
-      {9, BigInteger.valueOf(34)},
-      {10, BigInteger.valueOf(55)},
-      {11, BigInteger.valueOf(89)},
-      {12, BigInteger.valueOf(144)},
-      {13, BigInteger.valueOf(233)},
-      {14, BigInteger.valueOf(377)},
-      {15, BigInteger.valueOf(610)},
-      {16, BigInteger.valueOf(987)},
-      {17, BigInteger.valueOf(1597)},
-      {18, BigInteger.valueOf(2584)},
-      {19, BigInteger.valueOf(4181)},
-      {20, BigInteger.valueOf(6765)},
+      {0L, BigInteger.valueOf(0)},
+      {1L, BigInteger.valueOf(1)},
+      {2L, BigInteger.valueOf(1)},
+      {3L, BigInteger.valueOf(2)},
+      {4L, BigInteger.valueOf(3)},
+      {5L, BigInteger.valueOf(5)},
+      {6L, BigInteger.valueOf(8)},
+      {7L, BigInteger.valueOf(13)},
+      {8L, BigInteger.valueOf(21)},
+      {9L, BigInteger.valueOf(34)},
+      {10L, BigInteger.valueOf(55)},
+      {11L, BigInteger.valueOf(89)},
+      {12L, BigInteger.valueOf(144)},
+      {13L, BigInteger.valueOf(233)},
+      {14L, BigInteger.valueOf(377)},
+      {15L, BigInteger.valueOf(610)},
+      {16L, BigInteger.valueOf(987)},
+      {17L, BigInteger.valueOf(1597)},
+      {18L, BigInteger.valueOf(2584)},
+      {19L, BigInteger.valueOf(4181)},
+      {20L, BigInteger.valueOf(6765)},
   };
 
-  private Object[] negativeData = new Object[] {-1, -2, -5, -10, -20, -100};
+  private Object[] negativeData = new Object[] {-1L, -2L, -5L, -10L, -20L, -100L};
 
   private Object[] algorithms = new Object[] {
       (LongFunction<BigInteger>)Fibonacci::iterative,

@@ -9,24 +9,22 @@ repositories {
 }
 
 dependencies {
+  testCompile 'org.codehaus.groovy:groovy-all:2.4.+'
+  testCompile ('org.spockframework:spock-core:1.0-groovy-2.4') {
+    exclude module: 'groovy-all'
+  }
   testCompile 'org.testng:testng:6.+'
-  testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
-test {
-  // The Spock tests use the JUnit4 runner, comment the following out to run them.
-  //
-  // The TestNG tests will not run using the JUnit runner, uncomment the following to run them
-
-  //useTestNG()
-}
+task test_TestNG(type: Test) { useTestNG() }
+test.dependsOn test_TestNG
 
 clean.doLast {
   delete 'test-output'
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.10'
+  gradleVersion = '2.13'
 }
 
 defaultTasks 'test'
