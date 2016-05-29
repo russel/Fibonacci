@@ -5,7 +5,7 @@ Sequence:
 
     f(0) = 0
     f(1) = 1
-    f(n) = f(n - 1) + f(n - 2)
+    f(n) = f(n - 1) + f(n - 2), n > 1
 
 coded with a number of different algorithms/implementations in various languages. The purpose is not to
 provide Fibonacci as a Service (FaaS), but it to investigate data-driven testing (both example based and
