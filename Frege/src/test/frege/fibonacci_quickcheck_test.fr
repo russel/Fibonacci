@@ -1,16 +1,18 @@
 module Fibonacci_QuickCheck_Test where
 
 import Test.QuickCheck(quickCheck, property)
+import Test.QuickCheckModifiers(NonNegative)
 
-import Fibonacci(lazyList_recursion, lazyList_zipWith, tailRecursive)
+import Fibonacci(naïveRecursive, tailRecursive, lazyList_recursion, lazyList_zipWith)
 
-fibonacci_property :: (Int -> Integer) -> Int -> Bool
+fibonacci_property :: (Integer -> Integer) -> Integer -> Bool
 fibonacci_property f n
-    | n < 0 = True
     | n == 0 = f n == 0
     | n == 1 = f n == 1
     | n > 1 = f n == f (n - 1) + f (n - 2)
 
--- fibonacci_lazyList_recursion_property = property (fibonacci_property lazyList_recursion)
-fibonacci_lazyList_zipWith_property = property (fibonacci_property lazyList_zipWith)
--- fibonacci_lazyList_tailRecursive_property = property (fibonacci_property tailRecursive)
+-- Do not attempt to test the naïveRecursive implementation due to the exponential behaviour.
+-- fibonacci_naïveRecursive_property = property ((fibonacci_property naïveRecursive) . NonNegative.getNonNegative)
+fibonacci_tailRecursive_property = property ((fibonacci_property tailRecursive) . NonNegative.getNonNegative)
+fibonacci_lazyList_recursion_property = property ((fibonacci_property lazyList_recursion) . NonNegative.getNonNegative)
+fibonacci_lazyList_zipWith_property = property ((fibonacci_property lazyList_zipWith) . NonNegative.getNonNegative)
