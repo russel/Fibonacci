@@ -1,20 +1,34 @@
 module Fibonacci where
 
-lazyList_recursion :: Int -> Integer
-lazyList_recursion n = head $ drop n $ fibonacciSequence
+exceptionErrorMessage = "Cannot use a negative argument to Fibonacci function."
+
+naïveRecursive :: Integer -> Integer
+naïveRecursive n
+    | n < 0 = error exceptionErrorMessage
+    | n == 0 = 0
+    | n == 1 = 1
+    | n > 1 = naïveRecursive (n - 1) + naïveRecursive (n - 2)
+
+tailRecursive :: Integer -> Integer
+tailRecursive n
+    | n < 0 = error exceptionErrorMessage
+    | otherwise = fs n 0 1
+    where
+      fs 0 result next = result
+      fs i result next = fs (i - 1) next (result + next)
+
+lazyList_recursion :: Integer -> Integer
+lazyList_recursion n
+    | n < 0 = error exceptionErrorMessage
+    | otherwise = fibonacciSequence !! fromInteger n
     where
       fibonacciSequence = fs 0 1
           where
             fs a b = a : fs b (a + b)
 
-lazyList_zipWith :: Int -> Integer
---lazyList n = fibonacciSequence !! fromInteger n
-lazyList_zipWith n = head $ drop n $ fibonacciSequence
+lazyList_zipWith :: Integer -> Integer
+lazyList_zipWith n
+    | n < 0 = error exceptionErrorMessage
+    | otherwise = fibonacciSequence !! fromInteger n
   where
     fibonacciSequence = 0 : 1 : zipWith (+) fibonacciSequence (tail fibonacciSequence)
-
-tailRecursive :: Int -> Integer
-tailRecursive n = fs n 0 1
-    where
-      fs 0 a b = a
-      fs n a b = fs (n - 1) b (a + b)
