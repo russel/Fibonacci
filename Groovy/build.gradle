@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
 
-sourceCompatibility = 8
+targetCompatibility = 8
 
 repositories {
   jcenter()
@@ -15,7 +15,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.13'
+  gradleVersion = '2.14'
 }
 
 defaultTasks 'test'
