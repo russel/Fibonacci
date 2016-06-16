@@ -1,16 +1,17 @@
-#!/usr/bin/env py.test-3
+#!/usr/bin/env python3
 # -*- coding:utf-8; -*-
 
-import pytest
+from pytest import mark, raises
+
 from fibonacci import (
     Sequence,
-    naïveRecursive,
-    tailRecursive,
-    memoizedRecursive,
+    naïve_recursive,
+    tail_recursive,
+    memoized_recursive,
     iterative,
     generator,
     reduction,
-    lambdaReduce,
+    lambda_reduce,
     calculate,
 )
 
@@ -19,19 +20,19 @@ Example-based tests, using pytest, for the various Fibonacci implementations.
 '''
 
 __author__ = 'Russel Winder'
-__date__ = '2015-11-01'
-__version__ = '1.1'
-__copyright__ = 'Copyright © 2015  Russel Winder'
+__date__ = '2016-06-16'
+__version__ = '1.2.0'
+__copyright__ = 'Copyright © 2015, 2016  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
 algorithms = (
-    naïveRecursive,
-    tailRecursive,
-    memoizedRecursive,
+    naïve_recursive,
+    tail_recursive,
+    memoized_recursive,
     iterative,
     generator,
     reduction,
-    lambdaReduce,
+    lambda_reduce,
     calculate,
 )
 
@@ -59,6 +60,22 @@ data = (
     (20, 6765),
 )
 
+dataset = [(a, i, r) for a in algorithms for i, r in data]
+
+
+@mark.parametrize(('a', 'x', 'r'), dataset)
+def test_non_negative_integer(a, x, r):
+    assert a(x) == r
+
+
+@mark.parametrize(('a', 'x', 'r'), dataset)
+def test_negative_integer(a, x, r):
+    if r != 0:
+        with raises(ValueError):
+            a(-x)
+    else:
+        assert a(-x) == r
+
 
 def test_sequence_iterator():
     iterator = iter(Sequence())
@@ -72,32 +89,20 @@ def test_sequence_positiveIndex_randomSequenceOnSameInstance():
         assert f[i] == data[i][1]
 
 
-@pytest.mark.parametrize(('index', 'value'), data)
+@mark.parametrize(('index', 'value'), data)
 def test_positive_sequence(index, value):
     assert Sequence()[index] == value
 
 
-@pytest.mark.parametrize(('index', 'value'), data)
+@mark.parametrize(('index', 'value'), data)
 def test_negative_sequence(index, value):
     if value != 0:
-        with pytest.raises(ValueError):
+        with raises(ValueError):
             Sequence()[-index]
     else:
         assert Sequence()[-index] == value
 
 
-dataset = [(a, i, r) for a in algorithms for i, r in data]
-
-
-@pytest.mark.parametrize(('algorithm', 'index', 'value'), dataset)
-def test_positive_algorithm(algorithm, index, value):
-    assert algorithm(index) == value
-
-
-@pytest.mark.parametrize(('algorithm', 'index', 'value'), dataset)
-def test_negative_algorithm(algorithm, index, value):
-    if value != 0:
-        with pytest.raises(ValueError):
-            algorithm(-index)
-    else:
-        assert algorithm(-index) == value
+if __name__ == '__main__':
+    from pytest import main
+    main()
