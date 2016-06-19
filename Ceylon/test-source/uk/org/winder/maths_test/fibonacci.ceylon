@@ -2,9 +2,8 @@ import ceylon.test{test, testExecutor, assertEquals, assertThatException}
 import ceylon.math.whole{Whole, parseWhole, wholeNumber}
 import ceylon.language.meta.model{IncompatibleTypeException}
 
-import ceylon.random{DefaultRandom}
-
-import com.athaydes.specks{errorCheck, feature,  propertyCheck, Specification, SpecksTestExecutor }
+import com.athaydes.specks{Specification, SpecksTestExecutor,
+	errorCheck, feature,  propertyCheck, randomIntegers}
 import com.athaydes.specks.assertion{expect, expectToThrow}
 import com.athaydes.specks.matcher{equalTo}
 
@@ -70,11 +69,9 @@ void fibonacci_negativeValues() {
 testExecutor(`class SpecksTestExecutor`)
 test shared Specification fibonacci_specks() {
 
+	value lowerBound = 1;
 	value upperBound = 200;
-
-	class IntegerInRange(shared Integer val){}
-	value random = DefaultRandom();
-	function generateIntegerInRange() => IntegerInRange(random.nextElement(1..upperBound));
+	function generateIntegerInRange() => randomIntegers(100, lowerBound, upperBound);
 
 	return Specification{
   	feature{
@@ -93,7 +90,7 @@ test shared Specification fibonacci_specks() {
     	description = "Implementations obey the recurrence relation for input in the range [1, ``upperBound``].";
     	sampleCount = 20;
     	generators = [generateIntegerInRange];
-    	when(IntegerInRange n) => [n.val];
+    	when(Integer n) => [n];
     	(Integer n) => expect(fibonacci_iterative(n), equalTo(fibonacci_iterative(n - 1) + fibonacci_iterative(n - 2))),
     	// Unwise to test naïveRecursive this way due to exponential time behaviour.
     	//(Integer n) => expect(fibonacci_naïveRecursive(n), equalTo(fibonacci_naïveRecursive(n - 1) + fibonacci_naïveRecursive(n - 2))),
