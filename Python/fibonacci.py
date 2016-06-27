@@ -10,21 +10,23 @@ The Fibonacci Series is defined by the recurrence relation:
   F_n = F_{n-1} + F_{n-2}, n > 1
 '''
 
+from typing import Iterator
+
 __author__ = 'Russel Winder'
-__date__ = '2016-06-16'
-__version__ = '1.3.0'
+__date__ = '2016-06-27'
+__version__ = '1.4.0'
 __copyright__ = 'Copyright © 2015, 2016  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
 
-def _validate(n):
+def _validate(n: int):
     if not isinstance(n, int):
         raise TypeError('Argument must be an integer.')
     if n < 0:
         raise ValueError('Argument must be a non-negative integer.')
 
 
-def naïve_recursive(n):
+def naïve_recursive(n: int) -> int:
     '''
     The obvious, but naïve, recursive implementation. This implementation has, of course, exponential
     behaviour which means this is a fundamentally useless implementation.
@@ -33,14 +35,14 @@ def naïve_recursive(n):
     return n if n < 2 else naïve_recursive(n - 1) + naïve_recursive(n - 2)
 
 
-def tail_recursive(n):
+def tail_recursive(n: int) -> int:
     '''
     Functional programming generally emphasizes tail recursion as a replacement for iteration.
     Sadly Python does not perform tail recursion optimization, so there is still stack usage.
     '''
     _validate(n)
 
-    def iterate(i, r=0, n=1):
+    def iterate(i: int, r: int=0, n: int=1) -> int:
         return r if i == 0 else iterate(i - 1, n, r + n)
 
     return iterate(n)
@@ -49,7 +51,7 @@ def tail_recursive(n):
 memo = {0: 0, 1: 1}
 
 
-def memoized_recursive(n):
+def memoized_recursive(n: int) -> int:
     '''
     The obvious recursive implementation but using memoization so as to avoid the exponential behaviour
     that is the problem with the recursive implementation in the case that memoization is not used.
@@ -60,7 +62,7 @@ def memoized_recursive(n):
     return memo[n]
 
 
-def iterative(n):
+def iterative(n: int) -> int:
     '''The obvious iterative implementation using a simple loop.'''
     _validate(n)
     result, next = 0, 1
@@ -69,11 +71,11 @@ def iterative(n):
     return result
 
 
-def generator(n):
+def generator(n: int) -> int:
     '''An implementation using a nested generator implementing the Fibonacci Sequence.'''
     _validate(n)
 
-    def the_generator():
+    def the_generator() -> Iterator[int]:
         result, next = 0, 1
         while True:
             yield result
@@ -118,7 +120,7 @@ class Sequence:
 # Something akin to the following, and others not dissimilar, can be found at
 # http://stackoverflow.com/questions/4935957/fibonacci-numbers-with-an-one-liner-in-python-3
 
-def reduction(n):
+def reduction(n: int) -> int:
     '''Use the reduce function to realize an iterative solution.'''
     _validate(n)
     if n < 2:
@@ -127,7 +129,7 @@ def reduction(n):
     return reduce(lambda x, _: (x[1], x[0] + x[1]), ((0, 1) for _ in range(n)))[1]
 
 
-def lambda_reduce(n):
+def lambda_reduce(n: int) -> int:
     '''A second alternative using lambdas and reduce.'''
     _validate(n)
     if n < 2:
@@ -137,7 +139,7 @@ def lambda_reduce(n):
 
 
 # TODO This appears to fail for n == 71
-def calculate(n):
+def calculate(n: int) -> int:
     '''Use the closed form formula, Binet's Formula.'''
     _validate(n)
     from math import sqrt

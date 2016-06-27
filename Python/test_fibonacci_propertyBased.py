@@ -23,8 +23,8 @@ Property-based tests, using Hypothesis and pytest, for the various Fibonacci imp
 '''
 
 __author__ = 'Russel Winder'
-__date__ = '2016-06-16'
-__version__ = '1.0.0'
+__date__ = '2016-06-27'
+__version__ = '1.0.1'
 __copyright__ = 'Copyright © 2016  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
@@ -39,9 +39,12 @@ algorithms = (
     calculate,
 )
 
+_min_value = 0
+_max_value = 300
+
 
 @mark.parametrize('a', algorithms)
-@given(integers(min_value=0, max_value=100))
+@given(integers(min_value=_min_value, max_value=_max_value))
 def test_non_negative_integer(a, x):
     # Do not test naïve_recursive for large values due to the exponential time behaviour.
     if x < 20 or a != naïve_recursive:
@@ -79,7 +82,7 @@ def test_sequence_iterator():
         minus2, minus1 = minus1, this
 
 
-@given(integers(min_value=0, max_value=100))
+@given(integers(min_value=_min_value, max_value=_max_value))
 def test_sequence_non_negative_integer(i):
     f = Sequence()
     assert f[i + 2] == f[i + 1] + f[i]
