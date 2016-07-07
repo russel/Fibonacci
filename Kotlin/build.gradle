@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:1.+"
+  testCompile 'io.kotlintest:kotlintest:1.+'
   testCompile 'org.testng:testng:6.+'
   // TestNG needs these but they are not picked up as dependencies :-(
   testCompile 'junit:junit:4.+'
