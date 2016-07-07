@@ -1,5 +1,3 @@
-# -*- coding:utf-8; -*-
-
 '''
 A collection of functions each of which returns the nth entry in the Fibonacci Series.
 
@@ -13,13 +11,13 @@ The Fibonacci Series is defined by the recurrence relation:
 from typing import Iterator
 
 __author__ = 'Russel Winder'
-__date__ = '2016-06-27'
-__version__ = '1.4.0'
+__date__ = '2016-06-28'
+__version__ = '1.4.1'
 __copyright__ = 'Copyright © 2015, 2016  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
 
-def _validate(n: int):
+def _validate(n: int) -> None:
     if not isinstance(n, int):
         raise TypeError('Argument must be an integer.')
     if n < 0:
