@@ -10,7 +10,6 @@ fun validate(n:BigInteger):Unit {
   if (n < zero) { throw IllegalArgumentException() }
 }
 
-fun iterative(n:Long):BigInteger = iterative(n.bigint)
 fun iterative(n:BigInteger):BigInteger {
   validate(n)
   var result = zero;
@@ -22,8 +21,9 @@ fun iterative(n:BigInteger):BigInteger {
   }
   return result
 }
+fun iterative(n:Int):BigInteger = iterative(n.bigint)
+fun iterative(n:Long):BigInteger = iterative(n.bigint)
 
-fun naïveRecursive(n:Long):BigInteger = naïveRecursive(n.bigint)
 fun naïveRecursive(n:BigInteger):BigInteger {
   validate(n)
   return when (n) {
@@ -32,8 +32,9 @@ fun naïveRecursive(n:BigInteger):BigInteger {
     else -> naïveRecursive(n - one) + naïveRecursive(n - two)
   }
 }
+fun naïveRecursive(n:Int):BigInteger = naïveRecursive(n.bigint)
+fun naïveRecursive(n:Long):BigInteger = naïveRecursive(n.bigint)
 
-fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
 fun tailRecursive(n:BigInteger):BigInteger {
   validate(n)
   tailrec fun iterate(i:BigInteger, current:BigInteger=zero, next:BigInteger=one):BigInteger {
@@ -41,6 +42,8 @@ fun tailRecursive(n:BigInteger):BigInteger {
   }
   return iterate(n)
 }
+fun tailRecursive(n:Int):BigInteger = tailRecursive(n.bigint)
+fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
 
 fun sequence(n:Int):BigInteger {
   validate(n.bigint)
@@ -50,8 +53,9 @@ fun sequence(n:Int):BigInteger {
   return fs().take(n+1).last().first
 }
 
-fun foldive(n:Long):BigInteger = foldive(n.bigint)
 fun foldive(n:BigInteger):BigInteger {
   validate(n)
   return (one rangeTo n).fold(Pair(zero, one), { t, i -> Pair(t.second, t.first + t.second) }).first
 }
+fun foldive(n:Int):BigInteger = foldive(n.bigint)
+fun foldive(n:Long):BigInteger = foldive(n.bigint)
