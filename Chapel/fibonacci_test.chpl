@@ -36,18 +36,13 @@ proc assertEqual(s: string, x:int, y:BigInt) {
 
 proc main() {
 
-  for i in 1..positiveData.size {
-    const (v, r) = positiveData[i];
+  for (v, r) in positiveData {
     assertEqual("iterative_int", fibonacci.iterative(v), r);
   }
 
-  var i = 1;
-  for item in fibonacci.sequence(positiveData.size) {
-    const (v, r) = positiveData[i];
-    assertEqual("sequence", item, r);
-    i += 1;
+  for (item, i) in zip(fibonacci.sequence(positiveData.size), 1..positiveData.size) {
+    assertEqual("sequence", item, positiveData[i][2]);
   }
-
 
   writeln("\n#### ", assertCount, " assertions, ", assertFail, " failures.");
 
