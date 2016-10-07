@@ -1,0 +1,19 @@
+module Fibonacci_Test where
+
+import Test.QuickCheck(property)
+import Test.QuickCheckModifiers(NonNegative)
+
+import Fibonacci(naïveRecursive, tailRecursive, lazyListRecursive, lazyListZipWith)
+
+fibonacciProperty :: (Integer -> Integer) -> Integer -> Bool
+fibonacciProperty f n
+    | n == 0 = f n == 0
+    | n == 1 = f n == 1
+    | n > 1 = f n == f (n - 1) + f (n - 2)
+    | otherwise = error "This should never be allowed to happen."
+
+-- Do not attempt to test the naïveRecursive implementation due to the O(2^n) behaviour.
+-- fibonacciNaïveRecursiveProperty = property ((fibonacciProperty naïveRecursive) . NonNegative.getNonNegative)
+fibonacciTailRecursiveProperty = property ((fibonacciProperty tailRecursive) . NonNegative.getNonNegative)
+fibonacciLazyListRecursiveProperty = property ((fibonacciProperty lazyListRecursive) . NonNegative.getNonNegative)
+fibonacciLazyListZipWithProperty = property ((fibonacciProperty lazyListZipWith) . NonNegative.getNonNegative)

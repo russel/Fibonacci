@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
   //compile 'org.frege-lang:frege:3.24.+'
-  compile files('/home/users/russel/lib/Java/frege.jar')
+  compile files('/home/users/russel/lib/JDK/frege.jar')
 }
 
 task wrapper(type: Wrapper) {

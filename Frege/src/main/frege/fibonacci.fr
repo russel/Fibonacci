@@ -1,7 +1,25 @@
+{-|
+Module: Fibonacci
+Description: Various implementations of a function to deliver the nth number in the Fibonacci Sequence.
+Copyright: © 2015, 2016  Russel Winder
+License: GPLv3
+Maintainer: russel@winder.org.uk
+Stability: stable
+Portability: portable
+
+This module contains various implementations of a function to deliver the nth entry in the Fibonacci
+Sequence to show various different Frege techniques and approaches.
+
+The index into the sequence must be a non-negative integer so raise an error if the argument is a negative
+integer. Whilst this seems a little extreme, any program attempting to index into a zero-origin sequence
+with a negative integer is broken.
+-}
 module Fibonacci where
 
 exceptionErrorMessage = "Cannot use a negative argument to Fibonacci function."
 
+-- | Find the nth Fibonacci Number using a naïve recursive approach. This is obviously a very wrong
+-- | calculation algorithm as it has O(2^n) (upper bound) behaviour.
 naïveRecursive :: Integer -> Integer
 naïveRecursive n
     | n < 0 = error exceptionErrorMessage
@@ -9,6 +27,7 @@ naïveRecursive n
     | n == 1 = 1
     | n > 1 = naïveRecursive (n - 1) + naïveRecursive (n - 2)
 
+-- | Find the nth Fibonacci Number using a tail-recursive approach.
 tailRecursive :: Integer -> Integer
 tailRecursive n
     | n < 0 = error exceptionErrorMessage
@@ -17,8 +36,10 @@ tailRecursive n
       fs 0 result next = result
       fs i result next = fs (i - 1) next (result + next)
 
-lazyList_recursion :: Integer -> Integer
-lazyList_recursion n
+-- | Find the nth Fibonacci Number using selection from a lazily evaluated list. This version uses a
+-- | tail-recursive function approach to construct the list.
+lazyListRecursive :: Integer -> Integer
+lazyListRecursive n
     | n < 0 = error exceptionErrorMessage
     | otherwise = fibonacciSequence !! fromInteger n
     where
@@ -26,9 +47,11 @@ lazyList_recursion n
           where
             fs a b = a : fs b (a + b)
 
-lazyList_zipWith :: Integer -> Integer
-lazyList_zipWith n
+-- | Find the nth Fibonacci Number using selection from a lazily evaluated list. This version uses a
+-- | zipWith approach to construct the list.
+lazyListZipWith :: Integer -> Integer
+lazyListZipWith n
     | n < 0 = error exceptionErrorMessage
     | otherwise = fibonacciSequence !! fromInteger n
-  where
-    fibonacciSequence = 0 : 1 : zipWith (+) fibonacciSequence (tail fibonacciSequence)
+    where
+      fibonacciSequence = 0 : 1 : zipWith (+) fibonacciSequence (tail fibonacciSequence)
