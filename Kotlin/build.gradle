@@ -18,11 +18,6 @@ repositories {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:1.+"
   testCompile 'io.kotlintest:kotlintest:1.+'
-  testCompile 'org.testng:testng:6.+'
-  // TestNG needs these but they are not picked up as dependencies :-(
-  testCompile 'junit:junit:4.+'
-  testCompile 'com.google.inject:guice:2.+'
-
 }
 
 // Kotlin compiler integrates with the Java compiler infrastructure so
@@ -31,10 +26,8 @@ sourceSets {
   main.java.srcDirs += 'src/main/kotlin'
 }
 
-test.useTestNG()
-
 task wrapper(type:Wrapper) {
-  gradleVersion = '2.14'
+  gradleVersion = '3.1'
 }
 
 defaultTasks 'test'

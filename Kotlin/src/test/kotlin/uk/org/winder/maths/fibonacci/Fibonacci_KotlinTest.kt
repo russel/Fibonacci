@@ -1,7 +1,11 @@
 package uk.org.winder.maths.fibonacci
 
 import io.kotlintest.specs.StringSpec
+import io.kotlintest.KTestJUnitRunner
 
+import org.junit.runner.RunWith
+
+@RunWith(KTestJUnitRunner::class)
 class Fibonacci_KotlinTest: StringSpec() {
   init {
 
