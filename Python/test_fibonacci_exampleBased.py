@@ -11,6 +11,7 @@ from fibonacci import (
     generator,
     reduction,
     lambda_reduce,
+    zipping,
     calculate,
 )
 

@@ -80,10 +80,9 @@ def generator(n: int) -> int:
             result, next = next, result + next
 
     fibonacci_sequence = the_generator()
-    result = 0
-    for i in range(n + 1):
-        result = next(fibonacci_sequence)
-    return result
+    for i in range(n):
+        next(fibonacci_sequence)
+    return next(fibonacci_sequence)
 
 
 class Sequence:
@@ -136,7 +135,18 @@ def lambda_reduce(n: int) -> int:
     return (lambda i: reduce(lambda x, _: [x[1], x[0] + x[1]], range(i), [0, 1]))(n)[0]
 
 
-# TODO This appears to fail for n == 71
+def zipping(n: int) -> int:
+    _validate(n)
+    if n < 2:
+        return n
+    pairs = zip(range(0, n), range(1, n + 1))
+    a, b = 0, 0
+    for i in range(n):
+        a, b = next(pairs)
+    return a + b
+
+
+# TODO This appears to fail for n == 69
 def calculate(n: int) -> int:
     '''Use the closed form formula, Binet's Formula.'''
     _validate(n)
