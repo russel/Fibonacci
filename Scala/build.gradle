@@ -8,9 +8,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.11.+'
-    testCompile 'org.scalatest:scalatest_2.11:+'
-    testCompile 'org.scalacheck:scalacheck_2.11:+'
+    compile 'org.scala-lang:scala-library:2.12.+'
+    testCompile 'org.scalatest:scalatest_2.12:+'
+    testCompile 'org.scalacheck:scalacheck_2.12:+'
 }
 
 task scalaTest(dependsOn: ['testClasses'], type: JavaExec) {
@@ -22,3 +22,5 @@ task scalaTest(dependsOn: ['testClasses'], type: JavaExec) {
 task wrapper(type: Wrapper) {
   gradleVersion = '3.1'
 }
+
+defaultTasks 'test'
