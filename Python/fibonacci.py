@@ -46,6 +46,11 @@ def tail_recursive(n: int) -> int:
     return iterate(n)
 
 
+# For a memoize decorator or three see
+# https://wiki.python.org/moin/PythonDecoratorLibrary#Memoize
+#
+# Just use a manual memo for here though.
+
 memo = {0: 0, 1: 1}
 
 
