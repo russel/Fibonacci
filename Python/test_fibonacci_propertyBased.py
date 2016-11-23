@@ -23,8 +23,8 @@ Property-based tests, using Hypothesis and pytest, for the various Fibonacci imp
 '''
 
 __author__ = 'Russel Winder'
-__date__ = '2016-06-27'
-__version__ = '1.0.1'
+__date__ = '2016-11-23'
+__version__ = '1.1'
 __copyright__ = 'Copyright © 2016  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
@@ -41,6 +41,12 @@ algorithms = (
 
 _min_value = 0
 _max_value = 300
+
+
+@mark.parametrize('a', algorithms)
+def test_base_cases(a):
+    assert a(0) == 0
+    assert a(1) == 1
 
 
 @mark.parametrize('a', algorithms)
