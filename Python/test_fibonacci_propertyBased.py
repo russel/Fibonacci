@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Property-based tests, using Hypothesis and pytest, for the various Fibonacci implementations.
+"""
+
 from pytest import mark, raises
 
 from hypothesis import assume, given
@@ -17,10 +21,6 @@ from fibonacci import (
     zipping,
     calculate,
 )
-
-'''
-Property-based tests, using Hypothesis and pytest, for the various Fibonacci implementations.
-'''
 
 __author__ = 'Russel Winder'
 __date__ = '2016-11-23'

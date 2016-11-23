@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Example-based tests, using pytest, for the various Fibonacci implementations.
+"""
+
 from pytest import mark, raises
 
 from fibonacci import (
@@ -14,10 +18,6 @@ from fibonacci import (
     zipping,
     calculate,
 )
-
-'''
-Example-based tests, using pytest, for the various Fibonacci implementations.
-'''
 
 __author__ = 'Russel Winder'
 __date__ = '2016-06-16'
