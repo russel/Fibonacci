@@ -35,6 +35,7 @@ algorithms = (
     calculate,
 )
 
+
 @mark.parametrize('a', algorithms)
 def test_benchmark(a, benchmark):
     benchmark(a, 18)
