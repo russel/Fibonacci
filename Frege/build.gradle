@@ -11,9 +11,9 @@ repositories {
 }
 
 dependencies {
-  compile 'org.frege-lang:frege:3.23.+'
+  // Cannot use Frege prior to 3.24.27 for this code due to a bug fix regarding !! operator.
   //compile 'org.frege-lang:frege:3.24.+'
-  //compile files('/home/users/russel/lib/JDK/frege.jar')
+  compile files(System.properties['user.home'] + '/lib/JDK/frege.jar')
 }
 
 defaultTasks 'test'
