@@ -1,7 +1,6 @@
 # -*- mode: prolog; -*-
 
-fibonacci(0, 0).
-fibonacci(1, 1).
+fibonacci(0, 0) :- !.
 fibonacci(N, R) :- fibonacci(N, R, 0, 1).
 
 fibonacci(0, R, _, R) :- !.
