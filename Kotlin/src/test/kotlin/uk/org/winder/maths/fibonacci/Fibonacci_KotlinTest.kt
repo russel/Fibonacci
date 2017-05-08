@@ -2,44 +2,51 @@ package uk.org.winder.maths.fibonacci
 
 import io.kotlintest.specs.StringSpec
 import io.kotlintest.KTestJUnitRunner
+import io.kotlintest.matchers.shouldThrow
+import io.kotlintest.properties.Gen
+import io.kotlintest.properties.forAll
+import io.kotlintest.properties.table
+import io.kotlintest.properties.headers
+import io.kotlintest.properties.row
 
 import org.junit.runner.RunWith
 
-@RunWith(KTestJUnitRunner::class)
-class Fibonacci_KotlinTest: StringSpec() {
-  init {
+val random = java.util.Random()
 
-    val algorithms = listOf(
-        "iterative" to { x: Int -> iterative(x) },
-        "naïveRecursive" to { x: Int -> naïveRecursive(x) },
-        "tailRecursive" to { x: Int -> tailRecursive(x) },
-        "sequence" to ::sequence,
-        "foldive" to { x: Int -> foldive(x) }
+val mediumSizeWholeNumbers = object: Gen<Int> {
+    override fun generate() = random.nextInt(1000)
+}
+
+@RunWith(KTestJUnitRunner::class)
+class Fibonacci_KotlinTest: StringSpec({
+
+    val algorithms = table(
+        headers("name", "f"),
+        row("iterative", {x: Int -> iterative(x)}),
+        // row("naïveRecursive", {x: Int -> naïveRecursive(x)}),  // Exponential time and space behaviour. :-(
+        row("tailRecursive", {x: Int -> tailRecursive(x)}),
+        row("sequence", {x: Int -> sequence(x)}),
+        row("foldive", {x: Int -> foldive(x)})
     )
 
-    algorithms.forEach{a ->
-      val name = a.first
-      val f = a.second
+    forAll(algorithms){name, f ->
 
-      (name + ": zeroth Fibonacci Number is 0") { f(0) == zero }
+      "$name: zeroth Fibonacci Number is 0" { f(0) == zero }
 
-      (name + ": first Fibonacci Number is 1") { f(1) == one }
+      "$name: first Fibonacci Number is 1" { f(1) == one }
 
-      (name + ": non-negative arguments obey the recurrence relation") {
-        forAll{i: Int ->
-          if (1 < i && i < 100000) { f(i) == f(i - 1) + f(i - 2) }
-          else { true }
+      "$name: non-negative arguments obey the recurrence relation" {
+        forAll(mediumSizeWholeNumbers){i: Int ->
+          f(i + 2) == f(i + 1) + f(i) }
         }
-      }
 
-      (name + ": negative argument causes exception") {
-        forAll{i:Int ->
-          if (i < 0) { shouldThrow<IllegalArgumentException>{ f(i) } }
+      "$name: negative argument causes exception" {
+        forAll(Gen.negativeIntegers()){i:Int ->
+          shouldThrow<IllegalArgumentException>{ f(i) }
           true
         }
       }
 
     }
 
-  }
-}
+})
