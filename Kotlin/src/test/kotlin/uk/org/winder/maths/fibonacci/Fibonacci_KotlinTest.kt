@@ -1,7 +1,6 @@
 package uk.org.winder.maths.fibonacci
 
 import io.kotlintest.specs.StringSpec
-import io.kotlintest.KTestJUnitRunner
 import io.kotlintest.matchers.shouldThrow
 import io.kotlintest.properties.Gen
 import io.kotlintest.properties.forAll
@@ -9,15 +8,12 @@ import io.kotlintest.properties.table
 import io.kotlintest.properties.headers
 import io.kotlintest.properties.row
 
-import org.junit.runner.RunWith
-
 val random = java.util.Random()
 
 val mediumSizeWholeNumbers = object: Gen<Int> {
     override fun generate() = random.nextInt(1000)
 }
 
-@RunWith(KTestJUnitRunner::class)
 class Fibonacci_KotlinTest: StringSpec({
 
     val algorithms = table(
@@ -36,8 +32,7 @@ class Fibonacci_KotlinTest: StringSpec({
       "$name: first Fibonacci Number is 1" { f(1) == one }
 
       "$name: non-negative arguments obey the recurrence relation" {
-        forAll(mediumSizeWholeNumbers){i: Int ->
-          f(i + 2) == f(i + 1) + f(i) }
+            forAll(mediumSizeWholeNumbers){i -> f(i + 2) == f(i + 1) + f(i)}
         }
 
       "$name: negative argument causes exception" {
