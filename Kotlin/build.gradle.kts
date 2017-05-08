@@ -11,8 +11,6 @@ apply {
   plugin("kotlin")
 }
 
-// targetCompatibility = 8
-
 repositories {
   gradleScriptKotlin()
   jcenter()
@@ -21,11 +19,7 @@ repositories {
 
 dependencies {
   compile(kotlinModule("stdlib"))
-  testCompile("io.kotlintest:kotlintest:1.+")
+  testCompile("io.kotlintest:kotlintest:2.+")
 }
-
-//task wrapper(type:Wrapper) {
-//  gradleVersion = '3.3'
-//}
 
 defaultTasks("test")
