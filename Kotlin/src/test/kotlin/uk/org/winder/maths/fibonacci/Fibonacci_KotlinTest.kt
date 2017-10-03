@@ -37,7 +37,7 @@ class Fibonacci_KotlinTest: StringSpec({
 
 				"$name: negative argument causes exception" {
 					forAll(Gen.negativeIntegers()){i:Int ->
-						shouldThrow<IllegalArgumentException>{ f(i) }
+						shouldThrow<IllegalArgumentException>{f(i)}
 						true
 					}
 				}

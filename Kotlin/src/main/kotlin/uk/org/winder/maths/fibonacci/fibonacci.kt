@@ -48,14 +48,14 @@ fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
 fun sequence(n:Int):BigInteger {
 	validate(n.bigint)
 	fun fs(): Sequence<Pair<BigInteger, BigInteger>> {
-		return generateSequence(Pair(zero, one), { e -> Pair(e.second, e.first + e.second) })
+		return generateSequence(Pair(zero, one), {e -> Pair(e.second, e.first + e.second)})
 	}
 	return fs().take(n+1).last().first
 }
 
 fun foldive(n:BigInteger):BigInteger {
 	validate(n)
-	return (one rangeTo n).fold(Pair(zero, one), { t, _ -> Pair(t.second, t.first + t.second) }).first
+	return (one rangeTo n).fold(Pair(zero, one), {t, _ -> Pair(t.second, t.first + t.second)}).first
 }
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
