@@ -5,52 +5,52 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 
 class Fibonacci_ScalaTest_ExampleBased extends FunSuite with TableDrivenPropertyChecks {
   val algorithms = Table(
-    ("algorithm", "name"),
-    (Fibonacci.iterativeWhile _, "iterative"),
-    (Fibonacci.iterativeFor _, "iterativeFor"),
-    (Fibonacci.naïveRecursive _, "naïveRecursive"),
-    (Fibonacci.tailRecursive _, "tailRecursive"),
-    (Fibonacci.memoizedRecursive _, "memoizedRecursive"),
-    (Fibonacci.foldLeftive _, "folded"),
-    (Fibonacci.zipive _, "zipive"),
-    (Fibonacci.closedForm _, "closed form")
+	("algorithm", "name"),
+	(Fibonacci.iterativeWhile _, "iterative"),
+	(Fibonacci.iterativeFor _, "iterativeFor"),
+	(Fibonacci.naïveRecursive _, "naïveRecursive"),
+	(Fibonacci.tailRecursive _, "tailRecursive"),
+	(Fibonacci.memoizedRecursive _, "memoizedRecursive"),
+	(Fibonacci.foldLeftive _, "folded"),
+	(Fibonacci.zipive _, "zipive"),
+	(Fibonacci.closedForm _, "closed form")
   )
 
   val inputData = Table(
-    ("n", "f"),
-    (0, BigInt(0)),
-    (1, BigInt(1)),
-    (2, BigInt(1)),
-    (3, BigInt(2)),
-    (4, BigInt(3)),
-    (5, BigInt(5)),
-    (6, BigInt(8)),
-    (7, BigInt(13)),
-    (8, BigInt(21)),
-    (9, BigInt(34)),
-    (10, BigInt(55)),
-    (11, BigInt(89)),
-    (12, BigInt(144)),
-    (13, BigInt(233)),
-    (14, BigInt(377)),
-    (15, BigInt(610)),
-    (16, BigInt(987)),
-    (17, BigInt(1597)),
-    (18, BigInt(2584)),
-    (19, BigInt(4181)),
-    (20, BigInt(6765))
+	("n", "f"),
+	(0, BigInt(0)),
+	(1, BigInt(1)),
+	(2, BigInt(1)),
+	(3, BigInt(2)),
+	(4, BigInt(3)),
+	(5, BigInt(5)),
+	(6, BigInt(8)),
+	(7, BigInt(13)),
+	(8, BigInt(21)),
+	(9, BigInt(34)),
+	(10, BigInt(55)),
+	(11, BigInt(89)),
+	(12, BigInt(144)),
+	(13, BigInt(233)),
+	(14, BigInt(377)),
+	(15, BigInt(610)),
+	(16, BigInt(987)),
+	(17, BigInt(1597)),
+	(18, BigInt(2584)),
+	(19, BigInt(4181)),
+	(20, BigInt(6765))
   )
   forAll (inputData) {(n:Int, f:BigInt) =>
-    forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
-      test(name + " " + n) { assert(algorithm(n) == f) }
-    }
+	forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
+	  test(name + " " + n) { assert(algorithm(n) == f) }
+	}
   }
 
   val negativeValues = Table("n", -20, -10, -1)
   forAll (negativeValues) {(n:Int) =>
-    forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
-      test(name + " " + n) { intercept [IllegalArgumentException] { algorithm(n) } }
-    }
+	forAll (algorithms) {(algorithm:Function[Int,BigInt], name:String) =>
+	  test(name + " " + n) { intercept [IllegalArgumentException] { algorithm(n) } }
+	}
   }
 
   test("iterative 10000") { Fibonacci.iterativeWhile(10000) }
