@@ -2,6 +2,8 @@ package uk.org.winder.maths.fibonacci
 
 import java.math.BigInteger
 
+import kotlin.coroutines.experimental.buildSequence
+
 val zero = BigInteger.ZERO
 val one = BigInteger.ONE
 val two = 2.bigint
@@ -45,12 +47,11 @@ fun tailRecursive(n:BigInteger):BigInteger {
 fun tailRecursive(n:Int):BigInteger = tailRecursive(n.bigint)
 fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
 
+val fs_sequence = generateSequence(Pair(zero, one), { e -> Pair(e.second, e.first + e.second)})
+
 fun sequence(n:Int):BigInteger {
 	validate(n.bigint)
-	fun fs(): Sequence<Pair<BigInteger, BigInteger>> {
-		return generateSequence(Pair(zero, one), {e -> Pair(e.second, e.first + e.second)})
-	}
-	return fs().take(n+1).last().first
+	return fs_sequence.take(n+1).last().first
 }
 
 fun foldive(n:BigInteger):BigInteger {
@@ -59,3 +60,21 @@ fun foldive(n:BigInteger):BigInteger {
 }
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
+
+val fs_coroutine = buildSequence {
+    var previous = zero
+    var current = one
+    yield(previous)
+	yield(current)
+    while (true) {
+        val temporary = previous
+        previous = current
+        current = temporary + current
+	    yield(current)
+    }
+}
+
+fun coroutine(n: Int): BigInteger {
+	validate(n.bigint)
+	return fs_coroutine.take(n + 1).last()
+}

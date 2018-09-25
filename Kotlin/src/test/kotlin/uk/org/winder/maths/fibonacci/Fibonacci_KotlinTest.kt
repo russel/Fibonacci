@@ -1,7 +1,6 @@
 package uk.org.winder.maths.fibonacci
 
 import kotlin.coroutines.experimental.buildIterator
-import kotlin.coroutines.experimental.buildSequence
 
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
@@ -27,7 +26,8 @@ class Fibonacci_KotlinTest: StringSpec({
 		// row("naïveRecursive", {x: Int -> naïveRecursive(x)}),  // Exponential time and space behaviour. :-(
 		row("tailRecursive", {x: Int -> tailRecursive(x)}),
 		row("sequence", {x: Int -> sequence(x)}),
-		row("foldive", {x: Int -> foldive(x)})
+		row("foldive", {x: Int -> foldive(x)}),
+		row("coroutine", {x: Int -> coroutine(x)})
 	)
 
 	forAll(algorithms){name, f ->
