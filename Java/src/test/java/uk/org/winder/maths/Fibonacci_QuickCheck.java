@@ -9,8 +9,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.rules.ExpectedException;
 import org.junit.Rule;
 
-import java.math.BigInteger;
-
 import static uk.org.winder.maths.Fibonacci.iterative;
 import static uk.org.winder.maths.Fibonacci.naïveRecursive;
 import static uk.org.winder.maths.Fibonacci.memoizedRecursive;
