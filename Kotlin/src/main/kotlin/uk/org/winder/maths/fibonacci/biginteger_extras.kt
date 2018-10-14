@@ -38,5 +38,6 @@ ClosedRange<BigInteger>, Iterable<BigInteger> {
 	override val endInclusive: BigInteger = BigInteger.ZERO
 }
 
-infix fun BigInteger.rangeTo(that: BigInteger) = BigIntegerRange(this, that, BigInteger.ONE)
+// Use rangeTo as implementation for .. rather than as  an infix function.
+operator fun BigInteger.rangeTo(that: BigInteger) = BigIntegerRange(this, that, BigInteger.ONE)
 infix fun BigInteger.downTo(that: BigInteger) = BigIntegerRange(this, that, -1.bigint)

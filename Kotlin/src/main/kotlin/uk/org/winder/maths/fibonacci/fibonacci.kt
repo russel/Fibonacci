@@ -16,7 +16,7 @@ fun iterative(n:BigInteger):BigInteger {
 	validate(n)
 	var result = zero;
 	var  next = one;
-	for (i in one rangeTo n) {
+	for (i in one .. n) {
 		val temporary = result
 		result = next
 		next = temporary + next
@@ -56,7 +56,7 @@ fun sequence(n:Int):BigInteger {
 
 fun foldive(n:BigInteger):BigInteger {
 	validate(n)
-	return (one rangeTo n).fold(Pair(zero, one), {t, _ -> Pair(t.second, t.first + t.second)}).first
+	return (one .. n).fold(Pair(zero, one), {t, _ -> Pair(t.second, t.first + t.second)}).first
 }
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
