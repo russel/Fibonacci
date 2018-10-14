@@ -14,7 +14,7 @@ import io.kotlintest.tables.row
 val random = java.util.Random()
 
 val smallishWholeNumbers = object: Gen<Int> {
-	override fun constants() = Iterable<Int> { buildIterator { yield(0) } }
+	override fun constants() = Iterable { buildIterator { yield(0) } }
 	override fun random() = generateSequence { random.nextInt(1000) }
 }
 
