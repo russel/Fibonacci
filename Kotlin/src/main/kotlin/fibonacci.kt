@@ -16,7 +16,7 @@ fun iterative(n:BigInteger):BigInteger {
 	validate(n)
 	var result = zero;
 	var  next = one;
-	for (i in one .. n) {
+	for (i in one.. n) {
 		val temporary = result
 		result = next
 		next = temporary + next
@@ -39,7 +39,7 @@ fun naïveRecursive(n:Long):BigInteger = naïveRecursive(n.bigint)
 
 fun tailRecursive(n:BigInteger):BigInteger {
 	validate(n)
-	tailrec fun iterate(i:BigInteger, current:BigInteger=zero, next:BigInteger=one):BigInteger {
+	tailrec fun iterate(i:BigInteger, current:BigInteger= zero, next:BigInteger= one):BigInteger {
 		return if (i == zero) current else iterate(i - one, next, current + next)
 	}
 	return iterate(n)
@@ -56,7 +56,7 @@ fun sequence(n:Int):BigInteger {
 
 fun foldive(n:BigInteger):BigInteger {
 	validate(n)
-	return (one .. n).fold(Pair(zero, one), {t, _ -> Pair(t.second, t.first + t.second)}).first
+	return (one.. n).fold(Pair(zero, one), { t, _ -> Pair(t.second, t.first + t.second)}).first
 }
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
