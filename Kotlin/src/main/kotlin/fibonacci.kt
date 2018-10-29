@@ -2,8 +2,6 @@ package uk.org.winder.maths.fibonacci
 
 import java.math.BigInteger
 
-import kotlin.coroutines.experimental.buildSequence
-
 val zero = BigInteger.ZERO
 val one = BigInteger.ONE
 val two = 2.bigint
@@ -61,17 +59,17 @@ fun foldive(n:BigInteger):BigInteger {
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
 
-val fs_coroutine = buildSequence {
-    var previous = zero
-    var current = one
-    yield(previous)
+val fs_coroutine = sequence {
+	var previous = zero
+	var current = one
+	yield(previous)
 	yield(current)
-    while (true) {
-        val temporary = previous
-        previous = current
-        current = temporary + current
-	    yield(current)
-    }
+	while (true) {
+		val temporary = previous
+		previous = current
+		current = temporary + current
+		yield(current)
+	}
 }
 
 fun coroutine(n: Int): BigInteger {

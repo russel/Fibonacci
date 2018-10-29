@@ -1,7 +1,5 @@
 package uk.org.winder.maths.fibonacci
 
-import kotlin.coroutines.experimental.buildIterator
-
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
 import io.kotlintest.properties.Gen
@@ -14,7 +12,7 @@ import io.kotlintest.tables.row
 val random = java.util.Random()
 
 val smallishWholeNumbers = object: Gen<Int> {
-	override fun constants() = Iterable { buildIterator { yield(0) } }
+	override fun constants() = Iterable { iterator { yield(0) } }
 	override fun random() = generateSequence { random.nextInt(1000) }
 }
 
