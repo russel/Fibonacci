@@ -1,7 +1,7 @@
-val kotlinVersion = "1.3.0"
+val kotlinVersion = "1.3.11"
 
 plugins {
-	kotlin("jvm") version("1.3.0")
+	kotlin("jvm") version("1.3.11")
 }
 
 repositories {
@@ -11,8 +11,10 @@ repositories {
 
 dependencies {
 	compile(kotlin("stdlib"))
-	testCompile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion") // Why is this needed?
-	testCompile("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion") // Why is this needed?
+	// Need this for the KotlinTest to do the right thing.
+	testCompile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+	// There seems to be a cock up in the Kotlin internal dependencies so we have to do this. :-(
+	testCompile("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
 	testCompile("io.kotlintest:kotlintest-runner-junit5:3.+")
 }
 
