@@ -1,4 +1,5 @@
 /.idea/
-/.lein-failures
 /Fibonacci.iml
+/.lein-failures
+/.lein-repl-history
 /target/

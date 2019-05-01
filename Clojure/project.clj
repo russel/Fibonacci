@@ -3,7 +3,9 @@
   :license {:name "GPL v.3"
             :url "http://www.gnu.org/licenses/gpl.html"}
   :dependencies [
-                 [org.clojure/clojure "1.7.0"]
-                 [org.clojure/test.check "0.7.0"]
-                 [com.gfredericks/test.chuck "0.1.19"]
-                 ])
+                 [org.clojure/clojure "1.10.0"]
+                 [org.clojure/test.check "0.10.0-alpha4"]
+                 [com.gfredericks/test.chuck "0.2.9"]
+                 ]
+  :repl-options {:init (load-file "src/fibonacci/variants.clj") }
+  )
