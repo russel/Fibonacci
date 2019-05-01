@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Example-based tests, using pytest, for the various Fibonacci implementations.
 """
@@ -15,7 +13,6 @@ from fibonacci import (
     generator,
     reduction,
     lambda_reduce,
-    zipping,
     calculate,
 )
 
@@ -101,8 +98,3 @@ def test_negative_sequence(index, value):
             Sequence()[-index]
     else:
         assert Sequence()[-index] == value
-
-
-if __name__ == '__main__':
-    from pytest import main
-    main()

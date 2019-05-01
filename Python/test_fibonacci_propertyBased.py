@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Property-based tests, using Hypothesis and pytest, for the various Fibonacci implementations.
 """
@@ -18,7 +16,6 @@ from fibonacci import (
     generator,
     reduction,
     lambda_reduce,
-    zipping,
     calculate,
 )
 
@@ -113,8 +110,3 @@ def test_sequence_string_causes_TypeError(x):
     f = Sequence()
     with raises(TypeError):
         f[x]
-
-
-if __name__ == '__main__':
-    from pytest import main
-    main()

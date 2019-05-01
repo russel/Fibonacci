@@ -1,4 +1,4 @@
-'''
+"""
 A collection of functions each of which returns the nth entry in the Fibonacci Series.
 
 The Fibonacci Series is defined by the recurrence relation:
@@ -6,7 +6,7 @@ The Fibonacci Series is defined by the recurrence relation:
   F_0 = 0
   F_1 = 1
   F_n = F_{n-1} + F_{n-2}, n > 1
-'''
+"""
 
 from typing import Iterator
 
@@ -25,22 +25,22 @@ def _validate(n: int) -> None:
 
 
 def naïve_recursive(n: int) -> int:
-    '''
+    """
     The obvious, but naïve, recursive implementation. This implementation has, of course, exponential
     behaviour which means this is a fundamentally useless implementation.
-    '''
+    """
     _validate(n)
     return n if n < 2 else naïve_recursive(n - 1) + naïve_recursive(n - 2)
 
 
 def tail_recursive(n: int) -> int:
-    '''
+    """
     Functional programming generally emphasizes tail recursion as a replacement for iteration.
     Sadly Python does not perform tail recursion optimization, so there is still stack usage.
-    '''
+    """
     _validate(n)
 
-    def iterate(i: int, r: int=0, n: int=1) -> int:
+    def iterate(i: int, r: int = 0, n: int = 1) -> int:
         return r if i == 0 else iterate(i - 1, n, r + n)
 
     return iterate(n)
@@ -55,10 +55,10 @@ memo = {0: 0, 1: 1}
 
 
 def memoized_recursive(n: int) -> int:
-    '''
+    """
     The obvious recursive implementation but using memoization so as to avoid the exponential behaviour
     that is the problem with the recursive implementation in the case that memoization is not used.
-    '''
+    """
     _validate(n)
     if n not in memo:
         memo[n] = memoized_recursive(n - 1) + memoized_recursive(n - 2)
@@ -66,7 +66,7 @@ def memoized_recursive(n: int) -> int:
 
 
 def iterative(n: int) -> int:
-    '''The obvious iterative implementation using a simple loop.'''
+    """The obvious iterative implementation using a simple loop."""
     _validate(n)
     result, next = 0, 1
     for i in range(n):
@@ -75,7 +75,7 @@ def iterative(n: int) -> int:
 
 
 def generator(n: int) -> int:
-    '''An implementation using a nested generator implementing the Fibonacci Sequence.'''
+    """An implementation using a nested generator implementing the Fibonacci Sequence."""
     _validate(n)
 
     def the_generator() -> Iterator[int]:
@@ -91,7 +91,7 @@ def generator(n: int) -> int:
 
 
 class Sequence:
-    '''A class realizing a lazily evaluated list holding the values comprising the Fibonacci Sequence.'''
+    """A class realizing a lazily evaluated list holding the values comprising the Fibonacci Sequence."""
     _sequence = [0, 1]
 
     def __getitem__(self, index):
@@ -123,7 +123,7 @@ class Sequence:
 # http://stackoverflow.com/questions/4935957/fibonacci-numbers-with-an-one-liner-in-python-3
 
 def reduction(n: int) -> int:
-    '''Use the reduce function to realize an iterative solution.'''
+    """Use the reduce function to realize an iterative solution."""
     _validate(n)
     if n < 2:
         return n
@@ -132,7 +132,7 @@ def reduction(n: int) -> int:
 
 
 def lambda_reduce(n: int) -> int:
-    '''A second alternative using lambdas and reduce.'''
+    """A second alternative using lambdas and reduce."""
     _validate(n)
     if n < 2:
         return n
@@ -140,20 +140,9 @@ def lambda_reduce(n: int) -> int:
     return (lambda i: reduce(lambda x, _: [x[1], x[0] + x[1]], range(i), [0, 1]))(n)[0]
 
 
-def zipping(n: int) -> int:
-    _validate(n)
-    if n < 2:
-        return n
-    pairs = zip(range(0, n), range(1, n + 1))
-    a, b = 0, 0
-    for i in range(n):
-        a, b = next(pairs)
-    return a + b
-
-
 # TODO This appears to fail for n == 69
 def calculate(n: int) -> int:
-    '''Use the closed form formula, Binet's Formula.'''
+    """Use the closed form formula, Binet's Formula."""
     _validate(n)
     from math import sqrt
     sqrt5 = sqrt(5)
