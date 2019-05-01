@@ -2,8 +2,11 @@ import os
 
 environment = Environment(
     tools=['g++', 'gnulink'],
-    CXXFLAGS=['-std=c++14', '-O3', '-W', '-Wall', '-Wundef', '-Wcast-align', '-Wno-unused-parameter', '-Wredundant-decls'],
+    CXXFLAGS=['-std=c++17', '-O3', '-W', '-Wall', '-Wundef', '-Wcast-align', '-Wno-unused-parameter', '-Wredundant-decls'],
     CPPPATH=[os.environ['HOME'] + '/include'],
    )
 
-environment.Program('fibonacci_test', ['fibonacci_test.cpp', 'fibonacci.cpp'])
+test_program = environment.Program('fibonacci_test', ['fibonacci_test.cpp', 'fibonacci.cpp'])
+
+Default(test_program)
+Command('run', test_program, './$SOURCE')
