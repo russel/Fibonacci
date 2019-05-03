@@ -1,54 +1,91 @@
-import std.range: drop, recurrence, takeOne;
-import std.typetuple: TypeTuple ;
+import std.bigint: BigInt;
+//import std.range: drop, recurrence, takeOne;
+//import std.typetuple: TypeTuple ;
 import std.typecons: tuple ;
 
-long iterative(immutable long n) {
-  auto current = 0;
-  auto next = 1;
-  for (auto i = 0; i < n; ++i) {
-    TypeTuple!(current, next) = tuple(next , current + next);
-    // The above works, despite comments on the email list, the following does not work as needed.
-    //tuple(current, next) = tuple(next , current + next);
+immutable BigInt zero = BigInt(0);
+immutable BigInt one = BigInt(1);
+immutable BigInt two = BigInt(2);
+
+BigInt iterative(immutable ulong n) { return iterative(BigInt(n)); }
+BigInt iterative(immutable BigInt n) {
+  BigInt current = zero;
+  BigInt next = one;
+  foreach (i; one .. n) {
+      immutable temporary = next;
+      next += current;
+      current = temporary;
   }
   return current;
 }
 
-long declarative(immutable long n) {
-  return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(0L, 1L), n)).front;
+/*
+BigInt declarative(immutable ulong n) { return declarative(BigInt(n)); }
+BigInt declarative(immutable BigInt n) {
+  return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(zero, one), n)).front;
+}
+*/
+
+BigInt recursive(immutable ulong n) { return iterative(BigInt(n)); }
+BigInt recursive(immutable BigInt n) {
+    if (n == 0 || n == 1) { return n; }
+    return recursive(n - 2) + recursive(n - 1);
 }
 
+version(unittest) {
+    import unit_threaded;
+
+    immutable algorithms = [
+                            tuple(&iterative, "iterative"),
+                            //tuple(&declarative, "declarative"),
+                            tuple(&recursive, "recursive"),
+                            ];
+}
+
+@("Example-based testing")
 unittest {
 
   import std.conv: to;
 
   immutable data = [
-                    [0, 0],
-                    [1, 1],
-                    [2, 1],
-                    [3, 2],
-                    [4, 3],
-                    [5, 5],
-                    [6, 8],
-                    [7, 13],
-                    [8, 21],
-                    [9, 34],
-                    [10, 55],
-                    [11, 89],
-                    [12, 144],
-                    [13, 233],
-                    [14, 377],
+                    tuple(0, zero),
+                    tuple(1, one),
+                    tuple(2, one),
+                    tuple(3, two),
+                    tuple(4, immutable BigInt(3)),
+                    tuple(5, immutable BigInt(5)),
+                    tuple(6, immutable BigInt(8)),
+                    tuple(7, immutable BigInt(13)),
+                    tuple(8, immutable BigInt(21)),
+                    tuple(9, immutable BigInt(34)),
+                    tuple(10, immutable BigInt(55)),
+                    tuple(11, immutable BigInt(89)),
+                    tuple(12, immutable BigInt(144)),
+                    tuple(13, immutable BigInt(233)),
+                    tuple(14, immutable BigInt(377)),
                     ] ;
 
-
-  string message(immutable string functionName, immutable int value, immutable long actual, immutable long expected) {
-    return functionName ~ "(" ~ to!string(value) ~ ") = " ~ to!string(actual) ~ " should be " ~ to!string(expected);
+  foreach (immutable a; algorithms) {
+      foreach (immutable item; data) {
+          immutable result = a[0](item[0]);
+          assert(result == item[1], a[1] ~ "(" ~ to!string(item[0]) ~ ") = " ~ to!string(result) ~ " should be " ~ to!string(item[1]));
+      }
   }
 
-  foreach (immutable item; data) {
-    immutable iterative_result = iterative(item[0]);
-    assert(iterative_result == item[1], message("iterative", item[0], iterative_result, item[1]));
+}
 
-    immutable declarative_result = declarative(item[0]);
-    assert(declarative_result == item[1], message("declarative", item[0], declarative_result, item[1]));
-  }
+@("Check the base case for all algorithms.")
+unittest {
+    foreach(a; algorithms) {
+        assert(a[0](0) == 0, a[1] ~ "(0) == 0 failed");
+        assert(a[0](1) == 1, a[1] ~ "(1) == 1 failed");
+    }
+}
+
+@("Check the property for all algorithms.")
+unittest {
+    foreach(a; algorithms) {
+        immutable f = a[0];
+        check!((ubyte a) => f(a + 2) == f(a + 1) + f(a));
+    }
 }
