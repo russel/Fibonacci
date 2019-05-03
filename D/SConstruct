@@ -1,1 +1,20 @@
-Command('test', 'fibonacci.d', 'rdmd -unittest --main $SOURCE')
+import os
+import pathlib
+
+built = pathlib.Path(os.environ['HOME']) / 'Built'
+include_path = built / 'include' / 'd'
+library_path = built / 'lib'
+
+testEnvironment = Environment(
+    tools=['ldc', 'link'],
+    DFLAGS=['-unittest'],
+    DPATH=[include_path.as_posix()],
+    DLINKFLAGS=['-main', '-link-defaultlib-shared'],
+    ENV=os.environ,
+    LIBPATH=[library_path.as_posix()],
+    LIBS=['unit-threaded'],
+)
+
+fibonacci_test = testEnvironment.ProgramAllAtOnce('fibonacci.d')
+
+Command('test', fibonacci_test, f'LD_LIBRARY_PATH={library_path}./$SOURCE')
