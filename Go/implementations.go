@@ -9,9 +9,7 @@
 // one for a big.Int. The return value in all cases is a big.Int.
 package fibonacci
 
-import (
-	"math/big"
-)
+import "math/big"
 
 var bigZero = big.NewInt(0)
 var bigOne = big.NewInt(1)
