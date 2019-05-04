@@ -1,14 +1,19 @@
+#[macro_use]
+extern crate lazy_static;
 extern crate num;
 #[cfg(test)]
 #[macro_use]
 extern crate quickcheck;
 
+use std::collections::HashMap;
 use std::iter::{Iterator, IntoIterator};
+use std::sync::Mutex;
 
 use num::{BigUint, Zero, One};
 use num::bigint::ToBigUint;
 use num::iter::{range, range_inclusive};
 use num::traits::ToPrimitive;
+use core::borrow::BorrowMut;
 
 fn iterative(n: &BigUint) -> BigUint {
     let mut result = BigUint::zero();
@@ -31,6 +36,30 @@ fn naive_recursive(n: &BigUint) -> BigUint {
     }
 }
 
+lazy_static! {
+static ref MEMO: Mutex<HashMap<BigUint, BigUint>> = {
+        let mut m = HashMap::new();
+        m.insert(BigUint::zero(), BigUint::zero());
+        m.insert(BigUint::one(), BigUint::one());
+        Mutex::new(m)
+    };
+}
+
+fn memoised_recursive(n: &BigUint) -> BigUint {
+    if let mut memo = MEMO.lock().unwrap() {
+        match memo.get(n) {
+            Some(item) => item.clone(),
+            None => {
+                let result = memoised_recursive(&(n.clone() - BigUint::one())) + memoised_recursive(&(n.clone() - 2.to_biguint().unwrap()));
+                memo.insert(n.clone(), result.clone());
+                result
+            },
+        }
+    } else {
+        panic!("Could not get the memo.")
+    }
+}
+
 fn foldive(n: &BigUint) -> BigUint {
     range(BigUint::zero(), n.clone()).fold((BigUint::zero(), BigUint::one()), |x, _| (x.0.clone() + x.1, x.0)).0
 }
@@ -40,7 +69,7 @@ mod tests {
     use num::{BigUint, Zero, One};
     use num::bigint::ToBigUint;
 
-    use super::{iterative, naive_recursive, foldive};
+    use super::{iterative, naive_recursive, memoised_recursive, foldive};
 
     // Cannot use BigInt as parameters for quickcheck test functions.
 
@@ -58,6 +87,12 @@ mod tests {
             } else {
                 true
             }
+        }
+    }
+
+    quickcheck!{
+        fn test_memoised_recursive(n: u64) -> bool {
+            memoised_recursive(&(n + 2).to_biguint().unwrap()) == memoised_recursive(&(n + 1).to_biguint().unwrap()) + memoised_recursive(&n.to_biguint().unwrap())
         }
     }
 
