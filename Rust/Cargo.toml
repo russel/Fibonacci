@@ -1,0 +1,9 @@
+[package]
+name = "Rust"
+version = "0.0.0"
+authors = ["Russel Winder <russel@winder.org.uk>"]
+edition = "2018"
+
+[dependencies]
+num = "*"
+quickcheck = "*"
