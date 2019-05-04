@@ -30,48 +30,26 @@ var test_data = map[uint]string{
 	20: "6765",
 }
 
-// #########################################################
-
-func allCorrectUintValues(t *testing.T, function func(uint) *big.Int) {
-	for parameter, expectedString := range test_data {
-		expected, success := new(big.Int).SetString(expectedString, 10)
-		if !success {
-			t.Errorf("Failed to create the expected %s value.\n", expectedString)
+func Test_SpecificUintValues(t *testing.T) {
+	for _, algorithm := range algorithms_uint {
+		for parameter, expectedString := range test_data {
+			expected, success := new(big.Int).SetString(expectedString, 10)
+			if !success {
+				t.Errorf("Failed to create the expected %s value.\n", expectedString)
+			}
+			assert.Equal(t, expected, algorithm(parameter))
 		}
-		assert.Equal(t, expected, function(parameter))
 	}
 }
 
-func Test_iterative_uint(t *testing.T) {
-	allCorrectUintValues(t, Iterative_uint)
-}
-
-func Test_recursive_uint(t *testing.T) {
-	allCorrectUintValues(t, NaïveRecursive_uint)
-}
-
-func Test_memoizedRecursive_uint(t *testing.T) {
-	allCorrectUintValues(t, MemoizedRecursive_uint)
-}
-
-func allCorrectBigIntValues(t *testing.T, function func(*big.Int) *big.Int) {
-	for parameter, expectedString := range test_data {
-		expected, success := new(big.Int).SetString(expectedString, 10)
-		if !success {
-			t.Errorf("Failed to create the expected %s value.\n", expectedString)
+func Test_SpecificBigIntValues(t *testing.T) {
+	for _, algorithm := range algorithms_bigInt {
+		for parameter, expectedString := range test_data {
+			expected, success := new(big.Int).SetString(expectedString, 10)
+			if !success {
+				t.Errorf("Failed to create the expected %s value.\n", expectedString)
+			}
+			assert.Equal(t, expected, algorithm(big.NewInt(int64(parameter))))
 		}
-		assert.Equal(t, expected, function(big.NewInt(int64(parameter))))
 	}
-}
-
-func Test_iterative_bigInt(t *testing.T) {
-	allCorrectBigIntValues(t, Iterative_bigInt)
-}
-
-func Test_recursive_bigInt(t *testing.T) {
-	allCorrectBigIntValues(t, NaïveRecursive_bigInt)
-}
-
-func Test_memoizedRecursive_bigInt(t *testing.T) {
-	allCorrectBigIntValues(t, MemoizedRecursive_bigInt)
 }
