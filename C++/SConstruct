@@ -8,6 +8,5 @@ environment = Environment(
 
 test_program = environment.Program('fibonacci_test', ['fibonacci_test.cpp', 'fibonacci.cpp'])
 
-Default(test_program)
-Command('test', test_program, './$SOURCE')
+Default(Command('test', test_program, './$SOURCE'))
 Clean('.', Glob('*~'))
