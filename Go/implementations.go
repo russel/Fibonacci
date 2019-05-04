@@ -1,15 +1,21 @@
 // Package fibonacci provides a number of implementations of a function to return the nth item in the
 // Fibonacci Sequence. The Fibonacci Sequence is defined by the recurrence relation:
 //
-//  f(0) = 0
-//  f(1) = 1
-//  f(n) = f(n -1) + f(n -2)
+//  f_0 = 0
+//  f_1 = 1
+//  f_n = f_{n - 1} + f_{n - 2}
 //
 // The variants show different algorithms. For each algorithm there are two implementations, one for a uint,
 // one for a big.Int. The return value in all cases is a big.Int.
+
 package fibonacci
 
 import "math/big"
+
+var bigZero = big.NewInt(0)
+var bigOne = big.NewInt(1)
+var bigTwo = big.NewInt(2)
+var bigThree = big.NewInt(3)
 
 // Iterative_uint is an imperative, loop-based implementation with the parameter being an uint value.
 func Iterative_uint(n uint) (value *big.Int) {
