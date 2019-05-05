@@ -2,6 +2,7 @@ package uk.org.winder.maths;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import static java.lang.Math.sqrt;
 public class Fibonacci {
     private static final BigInteger zero = BigInteger.ZERO;
     private static final BigInteger one = BigInteger.ONE;
-    private static final BigInteger two = one.add(one);
+    private static final BigInteger two = BigInteger.TWO;
 
     private static void validate(final BigInteger n) {
         if (n.compareTo(zero) < 0) {
@@ -47,7 +48,7 @@ public class Fibonacci {
                                 naïveRecursive(n.subtract(one)).add(naïveRecursive(n.subtract(two)));
     }
 
-    private static Map<BigInteger, BigInteger> memo = new HashMap<BigInteger, BigInteger>();
+    private static Map<BigInteger, BigInteger> memo = new HashMap<>();
     static {
         memo.put(zero, zero);
         memo.put(one, one);
@@ -65,28 +66,25 @@ public class Fibonacci {
         return memo.get(n);
     }
 
-    private static final BigDecimal bd_one = BigDecimal.ONE;
-    private static final BigDecimal bd_two = bd_one.add(bd_one);
-    private static final BigDecimal bd_half = BigDecimal.valueOf(0.5);
-
     public static BigInteger closedForm(final long n) {
         return closedForm(BigInteger.valueOf(n));
     }
 
     public static BigInteger closedForm(final BigInteger n) {
         validate(n);
+        //  Use what is known as Binet's Formula. cf. https://en.wikipedia.org/wiki/Fibonacci_number#Binet's_formula
+        final var one = BigDecimal.ONE;
+        final var two = BigDecimal.valueOf(2);
+        final var half = BigDecimal.valueOf(0.5);
         final var sqrt5 = BigDecimal.valueOf(sqrt(5));
-        return sqrt5
-                .add(bd_one)
-                .divide(bd_two)
-                .pow(n.intValue())
-                .divide(sqrt5, BigDecimal.ROUND_HALF_DOWN)
-                .add(bd_half)
-                .toBigInteger();
+        final var n_i = n.intValue();
+        final var phi = sqrt5.add(one).divide(two).pow(n_i);
+        final var psi = sqrt5.subtract(one).divide(two).pow(n_i);
+        return phi.subtract(psi).divide(sqrt5, RoundingMode.HALF_UP).add(half).toBigInteger();
     }
 
     public static class Sequence {
-        private final static ArrayList<BigInteger> numbers = new ArrayList<BigInteger>();
+        private final static ArrayList<BigInteger> numbers = new ArrayList<>();
         static {
             numbers.add(zero);
             numbers.add(one);
