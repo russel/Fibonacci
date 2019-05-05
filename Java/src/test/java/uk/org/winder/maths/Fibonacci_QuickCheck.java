@@ -18,7 +18,7 @@ import static uk.org.winder.maths.Fibonacci.closedForm;
 public final class Fibonacci_QuickCheck {
 
   // Keep the Integer argument range relatively small so that the tests run in reasonable time.
-  // [1, 500] is seen as reasonable.
+  // [0, 500] is seen as reasonable.
 
   @Rule
   public ExpectedException thrown = ExpectedException.none();
