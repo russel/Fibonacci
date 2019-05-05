@@ -51,10 +51,14 @@ class Fibonacci_Spock extends Specification {
     then: notThrown(StackOverflowError)
   }
 
+  /*
+   * Takes too long to complete, so ignore.
+   *
   def 'naïve recursive of a huge number fails with a stack overflow'() {
     when: Fibonacci.naïveRecursive(10000)
     then: thrown(StackOverflowError)
   }
+  */
 
   def 'memoizedRecursive of a huge number fails with a stack overflow'() {
     when: Fibonacci.memoizedRecursive(10000)
