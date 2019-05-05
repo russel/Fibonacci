@@ -47,14 +47,17 @@ static ref MEMO: Mutex<HashMap<BigUint, BigUint>> = {
 
 fn memoised_recursive(n: &BigUint) -> BigUint {
     if let mut memo = MEMO.lock().unwrap() {
-        match memo.get(n) {
-            Some(item) => item.clone(),
-            None => {
-                let result = memoised_recursive(&(n.clone() - BigUint::one())) + memoised_recursive(&(n.clone() - 2.to_biguint().unwrap()));
-                memo.insert(n.clone(), result.clone());
-                result
-            },
+        fn m_r(nn: &BigUint, mm: &mut HashMap<BigUint, BigUint>) -> BigUint {
+            match mm.get(nn) {
+                Some(item) => item.clone(),
+                None => {
+                    let result = m_r(&(nn.clone() - BigUint::one()), mm) + m_r(&(nn.clone() - 2.to_biguint().unwrap()), mm);
+                    mm.insert(nn.clone(), result.clone());
+                    result
+                },
+            }
         }
+        m_r(n, &mut memo)
     } else {
         panic!("Could not get the memo.")
     }
