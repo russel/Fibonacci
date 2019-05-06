@@ -17,4 +17,4 @@ testEnvironment = Environment(
 
 fibonacci_test = testEnvironment.ProgramAllAtOnce('fibonacci.d')
 
-Command('test', fibonacci_test, f'LD_LIBRARY_PATH={library_path}./$SOURCE')
+Command('test', fibonacci_test, f'LD_LIBRARY_PATH={library_path} ./$SOURCE')
