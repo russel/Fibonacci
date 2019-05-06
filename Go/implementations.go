@@ -83,7 +83,7 @@ func MemoizedRecursive_uint(n uint) (value *big.Int) {
 
 // MemoizedRecursive_bigInt cannot be defined since it is not possible to have map
 // with big.Int as keys. big.Int == and != are not defined so there is no sensible way
-// of using them as keys in maps.
+// of using this type as keys in maps.
 
 
 var algorithms_uint = []func(uint)*big.Int {
