@@ -1,6 +1,5 @@
 import std.bigint: BigInt;
-//import std.range: drop, recurrence, takeOne;
-//import std.typetuple: TypeTuple ;
+import std.range: drop, recurrence, takeOne;
 import std.typecons: tuple ;
 
 immutable BigInt zero = BigInt(0);
@@ -9,22 +8,24 @@ immutable BigInt two = BigInt(2);
 
 BigInt iterative(immutable ulong n) { return iterative(BigInt(n)); }
 BigInt iterative(immutable BigInt n) {
-  BigInt current = zero;
-  BigInt next = one;
-  foreach (i; one .. n) {
-      immutable temporary = next;
-      next += current;
-      current = temporary;
-  }
-  return current;
+    BigInt current = zero;
+    BigInt next = one;
+    foreach (i; zero .. n) {
+        immutable temporary = next;
+        next += current;
+        current = temporary;
+    }
+    return current;
 }
 
-/*
 BigInt declarative(immutable ulong n) { return declarative(BigInt(n)); }
 BigInt declarative(immutable BigInt n) {
-  return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(zero, one), n)).front;
+    if (n == 0 || n == 1) { return n; }
+    // Cannot use const or immutable values as parameters to recurrence.
+    // Parameter to drop must be size_t.
+    assert(n < long.max, "Parameter to declarative too large for implementation to deal with.");
+    return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(BigInt(0), BigInt(1)), n.toLong())).front;
 }
-*/
 
 BigInt recursive(immutable ulong n) { return iterative(BigInt(n)); }
 BigInt recursive(immutable BigInt n) {
@@ -37,7 +38,7 @@ version(unittest) {
 
     immutable algorithms = [
                             tuple(&iterative, "iterative"),
-                            //tuple(&declarative, "declarative"),
+                            tuple(&declarative, "declarative"),
                             tuple(&recursive, "recursive"),
                             ];
 }
@@ -82,10 +83,12 @@ unittest {
     }
 }
 
-@("Check the property for all algorithms.")
+@("Check the Fibonacci property for all algorithms.")
 unittest {
     foreach(a; algorithms) {
         immutable f = a[0];
+        // Recursive implementation has dreadful run time performance so only use small
+        // numbers. [0, 255] for the parameter is probably good enough for all algorithms.
         check!((ubyte a) => f(a + 2) == f(a + 1) + f(a));
     }
 }
