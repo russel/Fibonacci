@@ -1,0 +1,5 @@
+fibonacci_beam = Command('fibonacci.beam', 'fibonacci.erl', 'erlc -DTEST $SOURCE')
+
+Alias("build", fibonacci_beam)
+
+Default(Command("test", fibonacci_beam, 'erl -noshell -pa ebin -eval "eunit:test(fibonacci, [verbose])" -s init stop'))
