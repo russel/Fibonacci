@@ -12,7 +12,6 @@ from fibonacci import (
     generator,
     reduction,
     lambda_reduce,
-    zipping,
     calculate,
 )
 
@@ -31,7 +30,6 @@ algorithms = (
     generator,
     reduction,
     lambda_reduce,
-    zipping,
     calculate,
 )
 
