@@ -24,7 +24,7 @@ BigInt declarative(immutable BigInt n) {
     // Cannot use const or immutable values as parameters to recurrence.
     // Parameter to drop must be size_t.
     assert(n < long.max, "Parameter to declarative too large for implementation to deal with.");
-    return takeOne(drop(recurrence!"a[n-1] + a[n-2]"(BigInt(0), BigInt(1)), n.toLong())).front;
+    return recurrence!"a[n-1] + a[n-2]"(BigInt(0), BigInt(1)).drop(n.toLong()).takeOne.front;
 }
 
 BigInt recursive(immutable ulong n) { return iterative(BigInt(n)); }
