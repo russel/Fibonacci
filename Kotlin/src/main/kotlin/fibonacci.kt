@@ -54,7 +54,7 @@ fun sequence(n:Int):BigInteger {
 
 fun foldive(n:BigInteger):BigInteger {
 	validate(n)
-	return (one.. n).fold(Pair(zero, one), { t, _ -> Pair(t.second, t.first + t.second)}).first
+	return (one .. n).fold(Pair(zero, one), { t, _ -> Pair(t.second, t.first + t.second)}).first
 }
 fun foldive(n:Int):BigInteger = foldive(n.bigint)
 fun foldive(n:Long):BigInteger = foldive(n.bigint)
