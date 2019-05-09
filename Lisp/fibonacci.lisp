@@ -1,9 +1,9 @@
 "
 Various implementations of the Fibonacci Sequence function:
 
-f 0 = 0
-f 1 = 1
-f n = f (n - 1) + f (n - 2)  ∀ n > 1
+f_0 = 0
+f_1 = 1
+f_n = f_{n - 1} + f_{n - 2}  ∀ n > 1
 "
 
 (defun naive-recursive (n)
