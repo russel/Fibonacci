@@ -2,8 +2,7 @@ plugins {
   id "org.frege-lang" version "0.8"
 }
 
-targetCompatibility = 8
-//targetCompatibility = 9
+targetCompatibility = 12
 
 repositories {
   jcenter()
@@ -12,7 +11,7 @@ repositories {
 
 dependencies {
   // Cannot use Frege prior to 3.24.27 for this code due to a bug fix regarding !! operator.
-  //compile 'org.frege-lang:frege:3.24.+'
+  //compile 'org.frege-lang:frege:3.25.+'
   compile files(System.properties['user.home'] + '/lib/JDK/frege.jar')
 }
 
