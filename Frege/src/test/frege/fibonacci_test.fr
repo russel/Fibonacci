@@ -7,9 +7,10 @@ import Fibonacci(naïveRecursive, tailRecursive, lazyListRecursive, lazyListZipW
 
 fibonacciProperty :: (Integer -> Integer) -> Integer -> Bool
 fibonacciProperty f n
+    | n < 0 = False
     | n == 0 = f n == 0
     | n == 1 = f n == 1
-    | otherwise = f n == f (n - 1) + f (n - 2)
+    | n > 1 = f n == f (n - 1) + f (n - 2)
 
 -- Do not attempt to test the naïveRecursive implementation due to the O(2^n) behaviour.
 -- fibonacciNaïveRecursiveProperty = property ((fibonacciProperty naïveRecursive) . NonNegative.getNonNegative)
