@@ -8,12 +8,13 @@ The Fibonacci Series is defined by the recurrence relation:
   F_n = F_{n-1} + F_{n-2}, n > 1
 """
 
+from functools import lru_cache
 from typing import Iterator
 
 __author__ = 'Russel Winder'
-__date__ = '2016-06-28'
-__version__ = '1.4.1'
-__copyright__ = 'Copyright © 2015, 2016  Russel Winder'
+__date__ = '2019-05-15'
+__version__ = '1.4.2'
+__copyright__ = 'Copyright © 2015, 2016, 2019  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
 
@@ -63,6 +64,15 @@ def memoized_recursive(n: int) -> int:
     if n not in memo:
         memo[n] = memoized_recursive(n - 1) + memoized_recursive(n - 2)
     return memo[n]
+
+
+# Since Python 3.2, there is a built-in LRU cache which can be used instead of an explicit memo.
+
+@lru_cache(maxsize=4096)
+def lru_recursive(n: int) -> int:
+    """The naïve recursive implementation but making use of the built-in LRU cache as a memoising system."""
+    _validate(n)
+    return n if n < 2 else lru_recursive(n - 1) + lru_recursive(n - 2)
 
 
 def iterative(n: int) -> int:

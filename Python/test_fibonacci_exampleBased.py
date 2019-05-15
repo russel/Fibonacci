@@ -9,6 +9,7 @@ from fibonacci import (
     naïve_recursive,
     tail_recursive,
     memoized_recursive,
+    lru_recursive,
     iterative,
     generator,
     reduction,
@@ -17,15 +18,16 @@ from fibonacci import (
 )
 
 __author__ = 'Russel Winder'
-__date__ = '2016-06-16'
-__version__ = '1.2.0'
-__copyright__ = 'Copyright © 2015, 2016  Russel Winder'
+__date__ = '2019-05-15'
+__version__ = '1.2.1'
+__copyright__ = 'Copyright © 2015, 2016, 2019  Russel Winder'
 __licence__ = 'GNU Public Licence (GPL) v3'
 
 algorithms = (
     naïve_recursive,
     tail_recursive,
     memoized_recursive,
+    lru_recursive,
     iterative,
     generator,
     reduction,
