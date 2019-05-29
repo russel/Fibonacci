@@ -3,6 +3,9 @@ extern crate lazy_static;
 extern crate num;
 #[cfg(test)]
 #[macro_use]
+extern crate proptest;
+#[cfg(test)]
+#[macro_use]
 extern crate quickcheck;
 
 use std::collections::HashMap;
@@ -77,14 +80,14 @@ mod tests {
     // Cannot use BigInt as parameters for quickcheck test functions.
 
     quickcheck!{
-        fn test_iterative(n: u64) -> bool {
+        fn quickcheck_iterative(n: u64) -> bool {
             iterative(&(n + 2).to_biguint().unwrap()) == iterative(&(n + 1).to_biguint().unwrap()) + iterative(&n.to_biguint().unwrap())
         }
     }
 
     quickcheck!{
         // NB We severely restrict the values of n for this version to avoid long run times.
-        fn test_naive_recursive(n: u8) -> bool {
+        fn quickcheck_naive_recursive(n: u8) -> bool {
             if n < 20 {
                 naive_recursive(&(n + 2).to_biguint().unwrap()) == naive_recursive(&(n + 1).to_biguint().unwrap()) + naive_recursive(&n.to_biguint().unwrap())
             } else {
@@ -94,15 +97,47 @@ mod tests {
     }
 
     quickcheck!{
-        fn test_memoised_recursive(n: u64) -> bool {
+        fn quickcheck_memoised_recursive(n: u64) -> bool {
             memoised_recursive(&(n + 2).to_biguint().unwrap()) == memoised_recursive(&(n + 1).to_biguint().unwrap()) + memoised_recursive(&n.to_biguint().unwrap())
         }
     }
 
     quickcheck!{
-        fn test_foldive(n: u64) -> bool {
+        fn quickcheck_foldive(n: u64) -> bool {
             foldive(&(n + 2).to_biguint().unwrap()) == foldive(&(n + 1).to_biguint().unwrap()) + foldive(&n.to_biguint().unwrap())
         }
     }
 
+    proptest!{
+        #[test]
+        fn proptest_iterative(n in 0u64..500) {
+            iterative(&(n + 2).to_biguint().unwrap()) == iterative(&(n + 1).to_biguint().unwrap()) + iterative(&n.to_biguint().unwrap())
+        }
+    }
+
+    proptest!{
+        // NB We severely restrict the values of n for this version to avoid long run times.
+        #[test]
+        fn proptest_naive_recursive(n in 0u64..15) {
+            if n < 20 {
+                naive_recursive(&(n + 2).to_biguint().unwrap()) == naive_recursive(&(n + 1).to_biguint().unwrap()) + naive_recursive(&n.to_biguint().unwrap())
+            } else {
+                true
+            }
+        }
+    }
+
+    proptest!{
+        #[test]
+        fn proptest_memoised_recursive(n in 0u64..500) {
+            memoised_recursive(&(n + 2).to_biguint().unwrap()) == memoised_recursive(&(n + 1).to_biguint().unwrap()) + memoised_recursive(&n.to_biguint().unwrap())
+        }
+    }
+
+    proptest!{
+        #[test]
+        fn proptest_foldive(n in 0u64..500) {
+            foldive(&(n + 2).to_biguint().unwrap()) == foldive(&(n + 1).to_biguint().unwrap()) + foldive(&n.to_biguint().unwrap())
+        }
+    }
 }
