@@ -1,17 +1,8 @@
-#[macro_use]
-extern crate lazy_static;
-extern crate num;
-#[cfg(test)]
-#[macro_use]
-extern crate proptest;
-#[cfg(test)]
-#[macro_use]
-extern crate quickcheck;
-
 use std::collections::HashMap;
 use std::iter::{Iterator, IntoIterator};
 use std::sync::Mutex;
 
+use lazy_static::lazy_static;
 use num::{BigUint, Zero, One};
 use num::bigint::ToBigUint;
 use num::iter::{range, range_inclusive};
@@ -74,6 +65,8 @@ fn foldive(n: &BigUint) -> BigUint {
 mod tests {
     use num::{BigUint, Zero, One};
     use num::bigint::ToBigUint;
+    use proptest::{prop_assert_eq, proptest};
+    use quickcheck::quickcheck;
 
     use super::{iterative, naive_recursive, memoised_recursive, foldive};
 
@@ -111,7 +104,7 @@ mod tests {
     proptest!{
         #[test]
         fn proptest_iterative(n in 0u64..500) {
-            iterative(&(n + 2).to_biguint().unwrap()) == iterative(&(n + 1).to_biguint().unwrap()) + iterative(&n.to_biguint().unwrap())
+            prop_assert_eq!(iterative(&(n + 2).to_biguint().unwrap()), iterative(&(n + 1).to_biguint().unwrap()) + iterative(&n.to_biguint().unwrap()))
         }
     }
 
@@ -120,9 +113,7 @@ mod tests {
         #[test]
         fn proptest_naive_recursive(n in 0u64..15) {
             if n < 20 {
-                naive_recursive(&(n + 2).to_biguint().unwrap()) == naive_recursive(&(n + 1).to_biguint().unwrap()) + naive_recursive(&n.to_biguint().unwrap())
-            } else {
-                true
+                prop_assert_eq!(naive_recursive(&(n + 2).to_biguint().unwrap()), naive_recursive(&(n + 1).to_biguint().unwrap()) + naive_recursive(&n.to_biguint().unwrap()))
             }
         }
     }
@@ -130,14 +121,14 @@ mod tests {
     proptest!{
         #[test]
         fn proptest_memoised_recursive(n in 0u64..500) {
-            memoised_recursive(&(n + 2).to_biguint().unwrap()) == memoised_recursive(&(n + 1).to_biguint().unwrap()) + memoised_recursive(&n.to_biguint().unwrap())
+            prop_assert_eq!(memoised_recursive(&(n + 2).to_biguint().unwrap()), memoised_recursive(&(n + 1).to_biguint().unwrap()) + memoised_recursive(&n.to_biguint().unwrap()))
         }
     }
 
     proptest!{
         #[test]
         fn proptest_foldive(n in 0u64..500) {
-            foldive(&(n + 2).to_biguint().unwrap()) == foldive(&(n + 1).to_biguint().unwrap()) + foldive(&n.to_biguint().unwrap())
+            prop_assert_eq!(foldive(&(n + 2).to_biguint().unwrap()), foldive(&(n + 1).to_biguint().unwrap()) + foldive(&n.to_biguint().unwrap()))
         }
     }
 }
