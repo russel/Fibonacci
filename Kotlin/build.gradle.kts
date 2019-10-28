@@ -1,5 +1,5 @@
 plugins {
-	kotlin("jvm") version("1.3.31")
+	kotlin("jvm") version("1.3.50")
 }
 
 repositories {
@@ -9,9 +9,11 @@ repositories {
 
 dependencies {
 	compile(kotlin("stdlib"))
-	// Need this for the KotlinTest to do the right thing.
-	testCompile("org.jetbrains.kotlin:kotlin-reflect:1.3.31")
 	testCompile("io.kotlintest:kotlintest-runner-junit5:3.+")
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform()
 }
 
 defaultTasks("test")
