@@ -36,16 +36,16 @@ public class Fibonacci {
         return result;
     }
 
-    public static BigInteger naïveRecursive(final long n) {
-        return naïveRecursive(BigInteger.valueOf(n));
+    public static BigInteger naiveRecursive(final long n) {
+        return naiveRecursive(BigInteger.valueOf(n));
     }
 
-    public static BigInteger naïveRecursive(final BigInteger n) {
+    public static BigInteger naiveRecursive(final BigInteger n) {
         validate(n);
         return
                 n.compareTo(zero) == 0 ? zero :
                         n.compareTo(one) == 0 ? one :
-                                naïveRecursive(n.subtract(one)).add(naïveRecursive(n.subtract(two)));
+                                naiveRecursive(n.subtract(one)).add(naiveRecursive(n.subtract(two)));
     }
 
     private static Map<BigInteger, BigInteger> memo = new HashMap<>();
