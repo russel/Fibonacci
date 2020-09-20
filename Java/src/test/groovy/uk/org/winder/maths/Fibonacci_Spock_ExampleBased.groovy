@@ -3,7 +3,7 @@ package uk.org.winder.maths
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class Fibonacci_Spock extends Specification {
+class Fibonacci_Spock_ExampleBased extends Specification {
   static data = [
       [0, 0G],
       [1, 1G],
