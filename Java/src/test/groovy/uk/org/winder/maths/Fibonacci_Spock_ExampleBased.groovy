@@ -35,12 +35,14 @@ class Fibonacci_Spock_ExampleBased extends Specification {
           // [Fibonacci.&closedForm, "closedForm"],  // There seems to be a problem with the closedForm implementation.
   ]
 
-  @Unroll def '#name(#value) should be #result'() {
+  @Unroll
+  def '#name(#value) should be #result'() {
     expect: result == algorithm.call(value)
     where: [algorithm, name, value, result] << algorithms.collectMany{a -> data.collect{v -> [*a, *v]}}
   }
 
-  @Unroll def '#name(#value) [negative argument] should raise an exception'() {
+  @Unroll
+  def '#name(#value) [negative argument] should raise an exception'() {
     when: algorithm.call(value)
     then: thrown(IllegalArgumentException)
     where: [algorithm, name, value] << algorithms.collectMany{a -> [-1, -2, -5, -10, -15, -20].collect{v -> [*a, v]}}
@@ -65,7 +67,8 @@ class Fibonacci_Spock_ExampleBased extends Specification {
     then: thrown(StackOverflowError)
   }
 
-  @Unroll def '#name(#value) [floating point argument] should raise an exception'() {
+  @Unroll
+  def '#name(#value) [floating point argument] should raise an exception'() {
     when: algorithm.call(value)
     then: thrown(MissingMethodException)
     where: [algorithm, name, value] << algorithms.collectMany{a -> [20.5, 10.5, 5.5, 0.5, -0.5, -5.5, -10.5, -20.5].collect{v -> [*a, v]}}

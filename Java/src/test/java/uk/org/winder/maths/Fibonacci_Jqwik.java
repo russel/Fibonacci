@@ -44,22 +44,22 @@ final class Fibonacci_Jqwik {
   // We all know that this implementation has dreadful performance characteristics, so
   // DO NOT use even medium sized values for the argument.
   @Property
-  public void naiveRecursivePositive(@ForAll @LongRange(min=0L, max=10L) final Long i) {
+  void naiveRecursivePositive(@ForAll @LongRange(min=0L, max=10L) final Long i) {
     assertEquals(Fibonacci.naiveRecursive(i + 2),  naiveRecursive(i + 1).add(naiveRecursive(i)));
   }
 
   @Property
-  public void naiveRecursiveNegative(@ForAll("-500 to -1") final Long i) {
+  void naiveRecursiveNegative(@ForAll("-500 to -1") final Long i) {
     assertThrows(RuntimeException.class, () -> naiveRecursive(i));
   }
 
   @Property
-  public void memoizedRecursivePositive(@ForAll("0 to 500") final Long i) {
+  void memoizedRecursivePositive(@ForAll("0 to 500") final Long i) {
     assertEquals(memoizedRecursive(i + 2), memoizedRecursive(i + 1).add(memoizedRecursive(i)));
   }
 
   @Property
-  public void memoizedRecursiveNegative(@ForAll("-500 to -1") final Long i) {
+  void memoizedRecursiveNegative(@ForAll("-500 to -1") final Long i) {
     assertThrows(RuntimeException.class, () -> memoizedRecursive(i));
   }
 

@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 import static org.testng.Assert.assertEquals;
 
 public class Fibonacci_TestNG {
-    private Object[][] positiveData = new Object[][]{
+    private final Object[][] positiveData = new Object[][]{
             {0L, BigInteger.valueOf(0)},
             {1L, BigInteger.valueOf(1)},
             {2L, BigInteger.valueOf(1)},
@@ -34,9 +34,9 @@ public class Fibonacci_TestNG {
             {20L, BigInteger.valueOf(6765)},
     };
 
-    private Object[] negativeData = new Object[]{-1L, -2L, -5L, -10L, -20L, -100L};
+    private final Object[] negativeData = new Object[]{-1L, -2L, -5L, -10L, -20L, -100L};
 
-    private Object[] algorithms = new Object[]{
+    private final Object[] algorithms = new Object[]{
             (LongFunction<BigInteger>) Fibonacci::iterative,
             (LongFunction<BigInteger>) Fibonacci::naiveRecursive,
             (LongFunction<BigInteger>) Fibonacci::memoizedRecursive,
