@@ -20,7 +20,7 @@ public class Fibonacci {
         }
     }
 
-    public static BigInteger iterative(final long n) {
+    public static BigInteger iterative(final Long n) {
         return iterative(BigInteger.valueOf(n));
     }
 
@@ -36,7 +36,7 @@ public class Fibonacci {
         return result;
     }
 
-    public static BigInteger naiveRecursive(final long n) {
+    public static BigInteger naiveRecursive(final Long n) {
         return naiveRecursive(BigInteger.valueOf(n));
     }
 
@@ -54,7 +54,7 @@ public class Fibonacci {
         memo.put(one, one);
     }
 
-    public static BigInteger memoizedRecursive(final long n) {
+    public static BigInteger memoizedRecursive(final Long n) {
         return memoizedRecursive(BigInteger.valueOf(n));
     }
 
@@ -66,7 +66,7 @@ public class Fibonacci {
         return memo.get(n);
     }
 
-    public static BigInteger closedForm(final long n) {
+    public static BigInteger closedForm(final Long n) {
         return closedForm(BigInteger.valueOf(n));
     }
 
