@@ -100,16 +100,16 @@ public class Fibonacci_TestNG {
     @Test
     public void javaIteratorFunction() {
         final var fs = Fibonacci.Sequence.iterator();
-        for (var i = 0; i < positiveData.length; ++i) {
-            assertEquals(fs.next(), positiveData[i][1]);
+        for (var positiveDatum : positiveData) {
+            assertEquals(fs.next(), positiveDatum[1]);
         }
     }
 
     @Test
     public void javaIteratorClassInstance() {
         final var fs = new Fibonacci.Sequence.Iterator();
-        for (var i = 0; i < positiveData.length; ++i) {
-            assertEquals(fs.next(), positiveData[i][1]);
+        for (var positiveDatum : positiveData) {
+            assertEquals(fs.next(), positiveDatum[1]);
         }
     }
 }
