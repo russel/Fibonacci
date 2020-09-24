@@ -2,15 +2,15 @@ package uk.org.winder.maths.fibonacci
 
 import java.math.BigInteger
 
-val zero = BigInteger.ZERO
-val one = BigInteger.ONE
+val zero: BigInteger = BigInteger.ZERO
+val one: BigInteger = BigInteger.ONE
 val two = 2.bigint
 
-fun validate(n:BigInteger):Unit {
+fun validate(n: BigInteger): Unit {
 	if (n < zero) { throw IllegalArgumentException() }
 }
 
-fun iterative(n:BigInteger):BigInteger {
+fun iterative(n: BigInteger): BigInteger {
 	validate(n)
 	var result = zero;
 	var  next = one;
@@ -21,43 +21,43 @@ fun iterative(n:BigInteger):BigInteger {
 	}
 	return result
 }
-fun iterative(n:Int):BigInteger = iterative(n.bigint)
-fun iterative(n:Long):BigInteger = iterative(n.bigint)
+fun iterative(n: Int): BigInteger = iterative(n.bigint)
+fun iterative(n: Long): BigInteger = iterative(n.bigint)
 
-fun naïveRecursive(n:BigInteger):BigInteger {
+fun naiveRecursive(n: BigInteger): BigInteger {
 	validate(n)
 	return when (n) {
 		zero -> zero
 		one -> one
-		else -> naïveRecursive(n - one) + naïveRecursive(n - two)
+		else -> naiveRecursive(n - one) + naiveRecursive(n - two)
 	}
 }
-fun naïveRecursive(n:Int):BigInteger = naïveRecursive(n.bigint)
-fun naïveRecursive(n:Long):BigInteger = naïveRecursive(n.bigint)
+fun naiveRecursive(n: Int): BigInteger = naiveRecursive(n.bigint)
+fun naiveRecursive(n: Long): BigInteger = naiveRecursive(n.bigint)
 
-fun tailRecursive(n:BigInteger):BigInteger {
+fun tailRecursive(n: BigInteger): BigInteger {
 	validate(n)
-	tailrec fun iterate(i:BigInteger, current:BigInteger= zero, next:BigInteger= one):BigInteger {
+	tailrec fun iterate(i: BigInteger, current: BigInteger= zero, next: BigInteger= one): BigInteger {
 		return if (i == zero) current else iterate(i - one, next, current + next)
 	}
 	return iterate(n)
 }
-fun tailRecursive(n:Int):BigInteger = tailRecursive(n.bigint)
-fun tailRecursive(n:Long):BigInteger = tailRecursive(n.bigint)
+fun tailRecursive(n: Int): BigInteger = tailRecursive(n.bigint)
+fun tailRecursive(n: Long): BigInteger = tailRecursive(n.bigint)
 
 val fs_sequence = generateSequence(Pair(zero, one), { e -> Pair(e.second, e.first + e.second)})
 
-fun sequence(n:Int):BigInteger {
+fun sequence(n: Int): BigInteger {
 	validate(n.bigint)
 	return fs_sequence.take(n+1).last().first
 }
 
-fun foldive(n:BigInteger):BigInteger {
+fun foldive(n: BigInteger): BigInteger {
 	validate(n)
 	return (one .. n).fold(Pair(zero, one), { t, _ -> Pair(t.second, t.first + t.second)}).first
 }
-fun foldive(n:Int):BigInteger = foldive(n.bigint)
-fun foldive(n:Long):BigInteger = foldive(n.bigint)
+fun foldive(n: Int): BigInteger = foldive(n.bigint)
+fun foldive(n: Long): BigInteger = foldive(n.bigint)
 
 val fs_coroutine = sequence {
 	var previous = zero
