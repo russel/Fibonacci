@@ -2,7 +2,7 @@ package uk.org.winder.maths.fibonacci
 
 import io.kotest.core.spec.style.StringSpec
 
-class BigInteger_Extras_Kotest: StringSpec({
+class BigIntegerExtrasKotest: StringSpec({
 
 	"a value is in a range it is supposed to be in" {
 		5.bigint in 0.bigint .. 10.bigint

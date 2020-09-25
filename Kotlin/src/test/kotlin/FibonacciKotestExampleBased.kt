@@ -1,7 +1,7 @@
 package uk.org.winder.maths.fibonacci
 
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.forAll
 import io.kotest.data.headers
 import io.kotest.data.row
@@ -10,7 +10,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.negativeInts
 import io.kotest.property.checkAll
 
-class Fibonacci_Kotest_ExampleBased: StringSpec({
+class FibonacciKotestExampleBased: FreeSpec({
     // Cannot use ::iterative, etc. here as each is an overloaded function and there
     // is no way of disambiguating. So create lambdas, to force correct types and
     // hence function selection.
@@ -25,41 +25,47 @@ class Fibonacci_Kotest_ExampleBased: StringSpec({
             row("coroutine", {x: Int -> coroutine(x)}),
     )
 
-    "positive arguments deliver the correct result" {
+    "positive arguments deliver the correct result" - {
         forAll(functions) { name, f ->
-            forAll(
-                    row(0, zero),
-                    row(1, one),
-                    row(2, one),
-                    row(3, two),
-                    row(4, 3.bigint),
-                    row(5, 5.bigint),
-                    row(6, 8.bigint),
-                    row(7, 13.bigint),
-                    row(8, 21.bigint),
-                    row(9, 34.bigint),
-                    row(10, 55.bigint),
-                    row(11, 89.bigint),
-                    row(12, 144.bigint),
-                    row(13, 233.bigint),
-                    row(14, 377.bigint),
-                    row(15, 610.bigint),
-                    row(16, 987.bigint),
-                    row(17, 1597.bigint),
-                    row(18, 2584.bigint),
-                    row(19, 4181.bigint),
-                    row(20, 6765.bigint),
-            ) { n, r ->
-                f(n) == r
+            name - {
+                forAll(
+                        row(0, zero),
+                        row(1, one),
+                        row(2, one),
+                        row(3, two),
+                        row(4, 3.bigint),
+                        row(5, 5.bigint),
+                        row(6, 8.bigint),
+                        row(7, 13.bigint),
+                        row(8, 21.bigint),
+                        row(9, 34.bigint),
+                        row(10, 55.bigint),
+                        row(11, 89.bigint),
+                        row(12, 144.bigint),
+                        row(13, 233.bigint),
+                        row(14, 377.bigint),
+                        row(15, 610.bigint),
+                        row(16, 987.bigint),
+                        row(17, 1597.bigint),
+                        row(18, 2584.bigint),
+                        row(19, 4181.bigint),
+                        row(20, 6765.bigint),
+                ) { n, r ->
+                    "$name($n) == $r" {
+                        f(n) == r
+                    }
+                }
             }
         }
     }
 
-    "negative arguments throw IllegalArgumentException" {
+    "negative arguments throw IllegalArgumentException" - {
         forAll(functions) { name, f ->
-            checkAll(Arb.negativeInts()) { n ->
-                shouldThrow<IllegalArgumentException> {
-                    f(n)
+            name - {
+                checkAll(Arb.negativeInts()) { n ->
+                    shouldThrow<IllegalArgumentException> {
+                        f(n)
+                    }
                 }
             }
         }
