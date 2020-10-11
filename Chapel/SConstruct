@@ -1,9 +1,16 @@
+import pathlib
 import os
 
-root = 'fibonacci'
-test_root = root + '_test'
+root = 'Fibonacci'
+test_root = root + '_Test'
 
-test_program = Command(test_root, [s + '.chpl' for s in (root, test_root)], 'chpl -o $TARGET $SOURCES', ENV=os.environ)
+test_program = Command(
+    test_root,
+    [str(pathlib.Path('src') / (root + '.chpl')), str(pathlib.Path('test') / (test_root + '.chpl'))],
+    f'chpl -o $TARGET --main-module {test_root} $SOURCES',
+    ENV=os.environ,
+)
 
 Default(Command('test', test_program, './$SOURCE'))
-Clean('.', Glob('*~'))
+
+Clean('.', Glob('*~') + Glob('*/*~'))
