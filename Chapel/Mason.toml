@@ -1,0 +1,5 @@
+[brick]
+name = "Fibonacci"
+version = "0.0.0"
+chplVersion = "1.23.0"
+authors = ["Russel Winder <russel@winder.org.uk>"]
